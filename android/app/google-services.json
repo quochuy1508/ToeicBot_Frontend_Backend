@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "202766130146",
+    "firebase_url": "https://my-project-1595947665884.firebaseio.com",
+    "project_id": "my-project-1595947665884",
+    "storage_bucket": "my-project-1595947665884.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202766130146:android:9e6451b582f33b5dbb37bb",
+        "android_client_info": {
+          "package_name": "com.edubot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202766130146-ir2j0kn6jstb9g2topoqod5n3andijo4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edubot",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "202766130146-hir8v2igp1pasribup82slm0j08tnmlq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9yzKZOuTVXjOfkhogz4L8OyRJpHm0KpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202766130146-hir8v2igp1pasribup82slm0j08tnmlq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
