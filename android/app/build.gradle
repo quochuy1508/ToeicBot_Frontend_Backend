@@ -81,6 +81,10 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
 
+project.ext.vectoricons = [
+        iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ] // Name of the font files you want to copy
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -183,6 +187,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
+    implementation project(':react-native-vector-icons')
+
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation(project(":react-native-google-signin"))
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
@@ -220,4 +226,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
