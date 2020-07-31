@@ -43,9 +43,9 @@ class GoogleButton extends Component {
   render() {
     return (
       <GoogleSigninButton
-        style={{width: 250, height: 48}}
+        style={{width: 250, height: 48, elevation: 0}}
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
+        color={GoogleSigninButton.Color.Light}
         onPress={() => this._signIn()}
         // disabled={this.state.isSigninInProgress}
       />
