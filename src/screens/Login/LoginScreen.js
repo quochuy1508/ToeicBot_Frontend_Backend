@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import styles from './style';
 import Logo from '../../components/common/Logo';
-import GoogleSignin from '../../components/login/GoogleSignin'
+import GoogleSignin from '../../components/login/GoogleSignin';
+import FacebookLogin from '../../components/login/FacebookLogin';
 
 function Login() {
   return (
@@ -10,6 +11,7 @@ function Login() {
       <Logo logosize={100} textsize={30} />
       <View style={styles.buttonContainer}>
         <GoogleSignin />
+        <FacebookLogin />
       </View>
       <View style={styles.supportContainer}>
         <Text>Having trouble? </Text>
