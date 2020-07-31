@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import AuthNavigator from './AuthNavigator';
-import AppNavigator from './AppNavigator';
+import AuthTab from './AuthTab';
+import AppTab from './AppTab';
 import {connect} from 'react-redux';
 const Navigation = ({users}) => {
   console.log('users: ', users);
@@ -9,11 +9,7 @@ const Navigation = ({users}) => {
   useEffect(() => {
     setInfo(users);
   }, [users]);
-  return info && Object.keys(info).length > 0 ? (
-    <AppNavigator />
-  ) : (
-    <AuthNavigator />
-  );
+  return info && Object.keys(info).length > 0 ? <AppTab /> : <AuthTab />;
 };
 
 const mapStateToProps = (state) => state;
