@@ -6,6 +6,7 @@ import Home from '../screens/Home/HomeScreen';
 import Logo from '../components/common/Logo';
 import NotiSet from '../components/common/NotiSet';
 import TabIcon from '../components/common/TabIcon';
+import Menu from '../screens/Menu';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -18,10 +19,10 @@ function HomeNavigator() {
   );
 }
 
-function ProfileNavigator() {
+function MenuNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Profile" component={Home} />
+      <Stack.Screen name="Menu" component={Menu} />
     </Stack.Navigator>
   );
 }
@@ -45,7 +46,7 @@ function AppNavigator({navigation}) {
       }}
     >
       <Tab.Screen name="Home" component={HomeNavigator} />
-      <Tab.Screen name="Profile" component={ProfileNavigator} />
+      <Tab.Screen name="Profile" component={MenuNavigator} />
     </Tab.Navigator>
   );
 }
