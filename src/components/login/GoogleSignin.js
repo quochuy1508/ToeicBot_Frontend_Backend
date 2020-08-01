@@ -5,6 +5,7 @@ import {
 } from '@react-native-community/google-signin';
 import React, {Component} from 'react';
 import {requestAuthenticateUser} from '../../redux/actions/loginAction';
+import {Alert} from 'react-native';
 import {connect} from 'react-redux';
 
 class GoogleButton extends Component {
@@ -19,7 +20,7 @@ class GoogleButton extends Component {
       });
       await GoogleSignin.hasPlayServices();
       const info = await GoogleSignin.signIn();
-      alert('login success');
+      Alert.alert('Logged in successfully!', 'Welcome');
       this.setState(
         {
           userInfo: info.user,
@@ -28,7 +29,7 @@ class GoogleButton extends Component {
       );
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
+        Alert.alert('Login unsuccessful!', 'Please select your Google account');
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
@@ -37,17 +38,13 @@ class GoogleButton extends Component {
         // some other error happened
       }
       console.log('error: ', error);
-      alert('login error');
     }
   };
   render() {
     return (
       <GoogleSigninButton
-        style={{width: 250, height: 48, elevation: 0}}
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Light}
         onPress={() => this._signIn()}
-        // disabled={this.state.isSigninInProgress}
       />
     );
   }

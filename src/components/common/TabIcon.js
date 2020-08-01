@@ -10,7 +10,7 @@ function TabIcon({color, focused, name}) {
   } else if (name === 'Profile') {
     iconName = focused ? 'ios-list' : 'ios-list';
   } else if (name === 'Chatbot') {
-    iconName = focused ? 'chatbubbles-outline' : 'chatbubbles-outline';
+    iconName = focused ? 'ios-chatbubbles' : 'chatbubbles-outline';
   }
   return <Icon name={iconName} size={24} color={color} />;
 }
