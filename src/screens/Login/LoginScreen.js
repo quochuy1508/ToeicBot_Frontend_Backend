@@ -8,7 +8,7 @@ import FacebookLogin from '../../components/login/FacebookLogin';
 function Login() {
   return (
     <View style={styles.container}>
-      <Logo logosize={100} textsize={30} />
+      <Logo logosize={100} textsize={30} color="black" />
       <View style={styles.buttonContainer}>
         <GoogleSignin />
         <FacebookLogin />

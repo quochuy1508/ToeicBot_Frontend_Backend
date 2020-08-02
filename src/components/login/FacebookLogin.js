@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Button} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {LoginManager} from 'react-native-fbsdk';
 import {requestAuthenticateUser} from '../../redux/actions/loginAction';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 
 class FacebookLogin extends Component {
@@ -34,11 +35,13 @@ class FacebookLogin extends Component {
   };
   render() {
     return (
-      <Button
+      <TouchableOpacity 
         onPress={this.handleFacebookLogin}
-        title="Continue with fb"
-        color="#4267B2"
-      />
+        style={styles.container}
+      >
+        <Icon name='facebook' size={24} color="white" style={styles.icon} />
+        <Text style={styles.text}>Đăng nhập bằng Facebook</Text>
+      </TouchableOpacity>
     );
   }
 }
@@ -54,3 +57,24 @@ const FacebookButtonConnected = connect(
   mapDispatchToProps,
 )(FacebookLogin);
 export default FacebookButtonConnected;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#4267B2", 
+    flexDirection: "row", 
+    width: 305, 
+    height: 40, 
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+    },
+  icon: {
+    left: 15,
+    position: 'absolute'
+  },
+  text: {
+    color: 'white',
+    left: 95,
+    position: 'absolute'
+  } 
+});
