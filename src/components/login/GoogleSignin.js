@@ -29,7 +29,7 @@ class GoogleButton extends Component {
       );
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        Alert.alert('Login unsuccessful!', 'Please select your Google account');
+        Alert.alert('Login failed!', 'Please select your Google account');
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
