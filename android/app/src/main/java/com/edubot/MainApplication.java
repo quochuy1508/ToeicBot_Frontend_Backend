@@ -17,6 +17,7 @@ import com.facebook.soloader.SoLoader;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -45,7 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
                             new RNGestureHandlerPackage(),
                             new FBSDKPackage(),
                             new RNGoogleSigninPackage(),
-                            new SplashScreenReactPackage() // <-- this needs to be in the list
+                            new SplashScreenReactPackage(), // <-- this needs to be in the list
+                            new AsyncStoragePackage()
                     );
                 }
 

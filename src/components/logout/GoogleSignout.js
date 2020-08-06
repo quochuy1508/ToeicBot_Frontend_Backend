@@ -5,12 +5,22 @@ import {
   import {Button, Alert} from 'react-native';
   import {signOut} from '../../redux/actions/loginAction';
   import {connect} from 'react-redux';
+  import AsyncStorage from '@react-native-community/async-storage';
 
   class GoogleLogout extends Component {
+    _removeUser = async () => {
+      try {
+        await AsyncStorage.removeItem('user')
+      } catch(e) {
+        // remove error
+      }
+    }
+
     _signOut = async () => {
       try {
         await GoogleSignin.revokeAccess();
         await GoogleSignin.signOut();
+        this._removeUser();
         this.props.signOut();
         Alert.alert("Logged out successfully!");
       } catch (error) {
