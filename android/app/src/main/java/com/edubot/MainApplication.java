@@ -9,7 +9,6 @@ import com.swmansion.reanimated.ReanimatedPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -17,6 +16,8 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -44,7 +45,9 @@ public class MainApplication extends Application implements ReactApplication {
                             new SafeAreaContextPackage(),
                             new RNGestureHandlerPackage(),
                             new FBSDKPackage(),
-                            new RNGoogleSigninPackage() // <-- this needs to be in the list
+                            new RNGoogleSigninPackage(),
+                            new SplashScreenReactPackage(), // <-- this needs to be in the list
+                            new AsyncStoragePackage()
                     );
                 }
 
