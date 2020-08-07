@@ -15,7 +15,20 @@ import {
         // remove error
       }
     }
-
+    _onPress = () => {
+      Alert.alert(
+        'Log Out',
+        'Do you want to log out?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel'
+          },
+          { text: 'OK', onPress: () => this._signOut()}
+        ],
+        { cancelable: true }
+      );
+    };
     _signOut = async () => {
       try {
         await GoogleSignin.revokeAccess();
@@ -29,7 +42,7 @@ import {
     };
     render() {
       return (
-        <Button title="Log out!" onPress={() => this._signOut()}/>
+        <Button title="Log out!" onPress={() => this._onPress()}/>
       );
     }
   }  
