@@ -22,22 +22,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold', 
       fontSize: 18
     },
-    button: {
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 0.22,
-      shadowRadius: 2.22,
-      elevation: 3,
-      backgroundColor: 'white',
-      borderRadius: 5,
-      alignItems: 'center',
-      width: 100,
-      height: 120,
-      margin: 10
-    }
   });
 
   export default styles;
