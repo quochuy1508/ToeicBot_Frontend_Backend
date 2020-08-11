@@ -1,10 +1,19 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
+import database from '@react-native-firebase/database';
+import usersCollection from '../../../server/collections/usersCollection';
+import AsyncStorage from '@react-native-community/async-storage';
 
-function Chatbot() {
+function Chatbot({userId}) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    const onValueChange = database()
+      .ref(`/users/${userId}`)
+      .on('value', (snapshot) => {
+        console.log('User data: ', snapshot.val());
+      });
+    console.log('onValueChange: ', onValueChange);
     setMessages([
       {
         _id: 1,
@@ -19,7 +28,9 @@ function Chatbot() {
     ]);
   }, []);
 
-  const onSend = useCallback((messages = []) => {
+  const onSend = useCallback(async (messages = []) => {
+    const user = await AsyncStorage.getItem('user');
+    await usersCollection.writeRecord(user.id);
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages),
     );

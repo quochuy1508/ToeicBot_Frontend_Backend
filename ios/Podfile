@@ -18,6 +18,12 @@ target 'eduChat' do
 
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
+  pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
+
+  pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
+
+  pod 'RNFBDatabase', :path => '../node_modules/@react-native-firebase/database'
+
   target 'eduChatTests' do
     inherit! :complete
     # Pods for testing

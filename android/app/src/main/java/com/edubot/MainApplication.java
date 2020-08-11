@@ -4,6 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.react.ReactApplication;
+
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
+
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -16,8 +20,12 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+
+import io.invertase.firebase.database.ReactNativeFirebaseDatabasePackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -40,6 +48,9 @@ public class MainApplication extends Application implements ReactApplication {
                 protected List<ReactPackage> getPackages() {
                     return Arrays.<ReactPackage>asList(
                             new MainReactPackage(),
+                            new ReactNativeFirebaseDatabasePackage(),
+                            new ReactNativeFirebaseAppPackage(),
+                            new ReactNativeFirebaseFirestorePackage(),
                             new ReanimatedPackage(),
                             new VectorIconsPackage(),
                             new SafeAreaContextPackage(),
