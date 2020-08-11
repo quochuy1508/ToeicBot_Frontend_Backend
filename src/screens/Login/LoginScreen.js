@@ -4,12 +4,14 @@ import styles from './style';
 import Logo from '../../components/common/Logo';
 import GoogleSignin from '../../components/login/GoogleSignin';
 import FacebookLogin from '../../components/login/FacebookLogin';
+import GeneralLogin from '../../components/login/GeneralLogin';
 
 function Login() {
   return (
     <View style={styles.container}>
       <Logo logosize={100} textsize={30} color="black" />
       <View style={styles.buttonContainer}>
+        <GeneralLogin />
         <GoogleSignin />
         <FacebookLogin />
       </View>
