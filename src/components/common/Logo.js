@@ -21,7 +21,7 @@ function Logo({logosize, textsize, color}) {
   return (
     <View style={styles.logo}>
       <Image source={require("../../assets/logo.png")} style={styles.img}/>
-      <Text style={styles.appName}>BotStudy</Text>
+      <Text style={styles.appName}>ToeicBot</Text>
     </View>
   );
 }

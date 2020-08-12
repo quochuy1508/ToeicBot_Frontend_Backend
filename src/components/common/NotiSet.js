@@ -18,14 +18,17 @@ function NotiSet({navigation}) {
     <View style={styles.container}>
         <Noti 
           style={styles.iconStyle} 
-          name="bell" color="gray" 
+          name="bell" 
+          color="gray" 
           size={24}
           onPress={() => navigation.navigate("Notifications")}
         />
-        <Set name="settings" 
+        <Set 
+          name="settings" 
           size={24} 
           color="gray" 
-          onPress={() => navigation.navigate("Settings")}/>
+          onPress={() => navigation.navigate("Settings")}
+        />
     </View>
   );
 }

@@ -38,6 +38,7 @@ class FacebookLogin extends Component {
       <TouchableOpacity 
         onPress={this.handleFacebookLogin}
         style={styles.container}
+        delayPressIn={0}
       >
         <Icon name='facebook' size={24} color="white" style={styles.icon} />
         <Text style={styles.text}>Đăng nhập bằng Facebook</Text>
