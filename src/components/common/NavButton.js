@@ -16,7 +16,7 @@ export default function NavButton({name, navigation, uri}) {
         text = 'Go to Menu';
     }
     return(
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(name)}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(name)} delayPressIn={0}>
             <Image source={img} style={styles.image}/>
             <Text>{text}</Text>
         </TouchableOpacity>

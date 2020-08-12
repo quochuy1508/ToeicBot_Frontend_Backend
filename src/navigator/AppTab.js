@@ -2,8 +2,10 @@ import React, {useLayoutEffect} from 'react';
 import PropTypes from 'prop-types';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-import Home from '../screens/Home/HomeScreen';
+import Home from '../screens/Home';
 import ProfileScreen from '../screens/Profile';
+import Notification from '../screens/Notifications';
+import Settings from '../screens/Setting';
 import Logo from '../components/common/Logo';
 import NotiSet from '../components/common/NotiSet';
 import TabIcon from '../components/common/TabIcon';
@@ -55,8 +57,8 @@ function AllNavigator() {
           },
         }}
       />
-      <Stack.Screen name="Notifications" component={Home} />
-      <Stack.Screen name="Settings" component={Home} />
+      <Stack.Screen name="Notifications" component={Notification} />
+      <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   );

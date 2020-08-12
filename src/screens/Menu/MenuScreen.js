@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {View} from 'react-native';
-import GoogleLogout from '../../components/logout'
+import {View, Text} from 'react-native';
 
 function MenuScreen() {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <GoogleLogout />
+      <Text>Menu Screen!</Text>
     </View>
   );
 }

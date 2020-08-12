@@ -2,10 +2,11 @@ import {
     GoogleSignin,
   } from '@react-native-community/google-signin';
   import React, {Component} from 'react';
-  import {Button, Alert} from 'react-native';
+  import {Alert} from 'react-native';
   import {signOut} from '../../redux/actions/loginAction';
   import {connect} from 'react-redux';
   import AsyncStorage from '@react-native-community/async-storage';
+  import Button from '../common/SettingButton';
 
   class GoogleLogout extends Component {
     _removeUser = async () => {
@@ -35,14 +36,14 @@ import {
         await GoogleSignin.signOut();
         this._removeUser();
         this.props.signOut();
-        Alert.alert("Logged out successfully!");
+        Alert.alert("Log Out","Logged out successfully!");
       } catch (error) {
         console.error(error);
       }
     };
     render() {
       return (
-        <Button title="Log out!" onPress={() => this._onPress()}/>
+        <Button name='logout' onPress={this._onPress}/>
       );
     }
   }  

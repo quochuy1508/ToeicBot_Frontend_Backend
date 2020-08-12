@@ -31,7 +31,7 @@ class GoogleButton extends Component {
       });
       await GoogleSignin.hasPlayServices();
       const info = await GoogleSignin.signIn();
-      Alert.alert('Logged in successfully!', 'Welcome');
+      Alert.alert('Log In', 'Logged in successfully!');
       this.setState(
         {
           userInfo: info.user,
@@ -41,13 +41,13 @@ class GoogleButton extends Component {
       this._storeUser(info.user);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        Alert.alert('Login failed!', 'Please select your Google account');
+        Alert.alert('Log In', 'Login failed!\nPlease select your Google account');
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        Alert.alert('Login failed!', 'Sign in is in progress already');
+        Alert.alert('Log In', 'Login failed!\nSign in is in progress already');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        Alert.alert('Login failed!', 'Play services not available or outdated');
+        Alert.alert('Log In', 'Login failed!\nPlay services not available or outdated');
       } else {
-        Alert.alert('Login failed!', 'Something went wrong');
+        Alert.alert('Log In', 'Login failed!\nSomething went wrong');
       }
       console.log('error: ', error);
     }
