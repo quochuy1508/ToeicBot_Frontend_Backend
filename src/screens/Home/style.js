@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
       justifyContent:'space-around'
     },
     text: {
-      marginTop: 20,
-      marginLeft: 10,
+      marginTop: 10,
+      padding: 10,
       fontSize: 15,
     }
   });

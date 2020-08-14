@@ -5,6 +5,8 @@ function Card({url, image, title}) {
   const styles = StyleSheet.create({
     container: {
       flex: 2,
+      borderTopWidth: 2,
+      borderTopColor: 'gainsboro',
     },
     image: {
         height: 150,
