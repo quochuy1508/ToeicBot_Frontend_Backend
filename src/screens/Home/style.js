@@ -2,26 +2,19 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1, 
+      flex: 1,
+      backgroundColor: 'white' 
     },
-    info: {
-      flex: 1, 
+    buttonContainer: {
       flexDirection: 'row', 
-      alignItems: 'center',
-      resizeMode: 'cover',
-      backgroundColor: 'blue',
+      flex: 1, 
+      justifyContent:'space-around'
     },
-    avt: {
-      width: 75, 
-      height: 75, 
-      borderRadius: 38, 
-      margin: 20
-    },
-    name: {
-      color: 'white', 
-      fontWeight: 'bold', 
-      fontSize: 18
-    },
+    text: {
+      marginTop: 20,
+      marginLeft: 10,
+      fontSize: 15,
+    }
   });
 
   export default styles;

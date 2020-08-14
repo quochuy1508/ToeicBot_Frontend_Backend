@@ -1,23 +1,23 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 
-export default function NavButton({name, navigation, uri}) {
+export default function NavButton({name, navigation}) {
     let img, text;
     if(name === 'Chatbot') {
         img = require('../../assets/logo.png');
         text = 'Chat with Bot'
     }
     else if(name === 'Profile') {
-        img = {uri: uri };
+        img = {uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT_VnUVPYd2yW8dEYfNqqkYEehqC0uJ-dGwjA&usqp=CAU' };
         text = 'Go to Profile';
     }
     else {
-        img = {uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTnZ1FCCJbLKKDr8rBZjWPhfc4FjDcjuFC3Xw&usqp=CAU'};
-        text = 'Go to Menu';
+        img = {uri: 'https://images-na.ssl-images-amazon.com/images/I/51qs1z1-n9L.png'};
+        text = 'Go to Settings';
     }
     return(
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(name)} delayPressIn={0}>
-            <Image source={img} style={styles.image}/>
+            <Image source={img} style={styles.image} resizeMode='center'/>
             <Text>{text}</Text>
         </TouchableOpacity>
     )
@@ -37,13 +37,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
         width: 100,
-        height: 120,
+        height: 100,
         margin: 10
     },
     image: {
         width: 90, 
         height: 50, 
         margin: 10,
-        borderRadius: 5,
     }
 })

@@ -11,7 +11,6 @@ function Login() {
     <View style={styles.container}>
       <Logo logosize={100} textsize={30} color="black" />
       <View style={styles.buttonContainer}>
-        <GeneralLogin />
         <GoogleSignin />
         <FacebookLogin />
       </View>
