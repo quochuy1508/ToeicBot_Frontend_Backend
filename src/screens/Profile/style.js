@@ -2,19 +2,18 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1, 
+      flex: 1,
+      backgroundColor: 'white', 
     },
     info: {
-      flex: 1, 
+      flex: 3, 
       alignItems: 'center',
-      resizeMode: 'cover',
-      backgroundColor: 'blue',
+      backgroundColor: 'mediumblue',
     },
     avt: {
       width: 75, 
       height: 75, 
       borderRadius: 38, 
-      margin: 20
     },
     name: {
       color: 'white', 
@@ -22,7 +21,15 @@ const styles = StyleSheet.create({
       fontSize: 18
     },
     text: {
-      alignItems: 'center'
+      alignItems: 'center',
+      margin: 15,
+    },
+    level :{
+      flex: 1, 
+      backgroundColor: 'mediumblue', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      flexDirection: 'row',
     }
   });
 
