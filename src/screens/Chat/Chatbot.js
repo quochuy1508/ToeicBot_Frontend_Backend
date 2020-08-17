@@ -8,32 +8,31 @@ function Chatbot({userId}) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const onValueChange = database()
-      .ref(`/users/${userId}`)
-      .on('value', (snapshot) => {
-        console.log('User data: ', snapshot.val());
-      });
-    console.log('onValueChange: ', onValueChange);
     setMessages([
       {
         _id: 1,
-        text: 'Hello developer',
+        text: 'Hello ',
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
+          name: 'BOT',
+          avatar: require('../../assets/logo.png'),
         },
       },
     ]);
   }, []);
 
+  const getData = () => {
+    database.ref(`notes/`).on('value', function (snapshot) {
+      setData(snapshot.val());
+    });
+  };
   const onSend = useCallback(async (messages = []) => {
     const user = await AsyncStorage.getItem('user');
-    await usersCollection.writeRecord(user.id);
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages),
-    );
+    await usersCollection.writeRecord(user, messages);
+    setMessages((previousMessages) => {
+      return GiftedChat.append(previousMessages, messages);
+    });
   }, []);
 
   return (
