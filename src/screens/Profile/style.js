@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
       backgroundColor: 'mediumblue',
     },
     avt: {
-      width: 75, 
-      height: 75, 
-      borderRadius: 38, 
+      width: 70, 
+      height: 70, 
+      borderRadius: 35, 
     },
     name: {
       color: 'white', 
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
     text: {
       alignItems: 'center',
-      margin: 15,
+      margin: 10,
     },
     level :{
       flex: 1, 

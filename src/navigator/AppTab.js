@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -6,7 +6,6 @@ import ProfileScreen from '../screens/Profile';
 import Notification from '../screens/Notifications';
 import Settings from '../screens/Setting';
 import Logo from '../components/common/Logo';
-import NotiSet from '../components/common/NotiSet';
 import TabIcon from '../components/common/TabIcon';
 import HomeNavigator from './HomeNavigator';
 import ChatNavigator from './ChatNavigator';
@@ -14,12 +13,7 @@ import ChatNavigator from './ChatNavigator';
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-function AppTab({navigation}) {
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <NotiSet navigation={navigation} />,
-    });
-  }, [navigation]);
+function AppTab() {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
