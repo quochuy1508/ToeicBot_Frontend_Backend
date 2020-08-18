@@ -14,14 +14,7 @@ function Login() {
         <GoogleSignin />
         <FacebookLogin />
       </View>
-      <View style={styles.supportContainer}>
-        <Text>Having trouble? </Text>
-        <Text style={styles.support}>Contact Support.</Text>
-      </View>
-      <View style={styles.signUpContainer}>
-        <Text>DON'T HAVE ANY ACCOUNTS? </Text>
-        <Text style={styles.signUp}>SIGN UP</Text>
-      </View>
+      <Text style={styles.author}>Một sản phẩm của The Lord Of Phoenix</Text>
       <StatusBar backgroundColor="deepskyblue"/>
     </View>
   );

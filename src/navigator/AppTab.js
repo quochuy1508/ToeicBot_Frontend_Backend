@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import PropTypes from 'prop-types';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -49,8 +49,8 @@ function AllNavigator() {
           },
         }}
       />
-      <Stack.Screen name="Notifications" component={Notification} />
-      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Notifications" component={Notification} options={{headerTitle: 'Thông báo'}} />
+      <Stack.Screen name="Settings" component={Settings} options={{headerTitle: 'Cài đặt'}}/>
     </Stack.Navigator>
   );
 }

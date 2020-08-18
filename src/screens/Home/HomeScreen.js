@@ -6,7 +6,7 @@ import Card from '../../components/common/RecommendedCard';
 function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Recommended for you</Text>
+      <Text style={styles.text}>Đề xuất dành cho bạn</Text>
       <Card  
         url="https://www.anhngumshoa.com/tin-tuc/toeic-la-gi-bang-toeic-chung-chi-toeic-co-gia-tri-nhu-the-nao-36242.html"
         image="https://llv.edu.vn/media/2017/11/logo-toeic-15440892075481729847449.jpg"

@@ -18,14 +18,14 @@ import {
     }
     _onPress = () => {
       Alert.alert(
-        'Log Out',
-        'Do you want to log out?',
+        'Đăng xuất',
+        'Bạn muốn đăng xuất?',
         [
           {
-            text: 'Cancel',
+            text: 'Hủy',
             style: 'cancel'
           },
-          { text: 'OK', onPress: () => this._signOut()}
+          { text: 'Đồng ý', onPress: () => this._signOut()}
         ],
         { cancelable: true }
       );
@@ -36,7 +36,7 @@ import {
         await GoogleSignin.signOut();
         this._removeUser();
         this.props.signOut();
-        Alert.alert("Log Out","Logged out successfully!");
+        Alert.alert("Đăng xuất","Đăng xuất thành công!");
       } catch (error) {
         console.error(error);
       }

@@ -1,6 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-let width = Dimensions.get('window').width;
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,27 +12,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
    },
-   supportContainer: {
-    flexDirection: 'row',
-    position: 'absolute',
-    bottom: 100,
-   },
-   support: {
-    color: 'deepskyblue',
-   },
-   signUpContainer: {
-    flexDirection: 'row', 
-    backgroundColor: 'whitesmoke', 
-    height: 50, 
-    width: width,
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    position: 'absolute', 
-    bottom: 0,
-   },
-   signUp: {
-    color: 'deepskyblue', 
-    textDecorationLine: 'underline',
+   author: {
+     color: 'gray',
+     fontSize: 15,
+     position: 'absolute',
+     bottom: 0,
+     marginBottom: 20,
    }
 });
 

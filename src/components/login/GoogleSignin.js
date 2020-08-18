@@ -31,7 +31,7 @@ class GoogleButton extends Component {
       });
       await GoogleSignin.hasPlayServices();
       const info = await GoogleSignin.signIn();
-      Alert.alert('Log In', 'Logged in successfully!');
+      Alert.alert('Đăng nhập', 'Đăng nhập thành công!');
       this.setState(
         {
           userInfo: info.user,
@@ -41,13 +41,13 @@ class GoogleButton extends Component {
       this._storeUser(info.user);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        Alert.alert('Log In', 'Login failed!\nPlease select your Google account');
+        Alert.alert('Đăng nhập', 'Hãy chọn tài khoản Google của bạn!');
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        Alert.alert('Log In', 'Login failed!\nSign in is in progress already');
+        Alert.alert('Đăng nhập', 'Đang đăng nhập!');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        Alert.alert('Log In', 'Login failed!\nPlay services not available or outdated');
+        Alert.alert('Đăng nhập', 'Dịch vụ Play không khả dụng hoặc lỗi thời!');
       } else {
-        Alert.alert('Log In', 'Login failed!\nSomething went wrong');
+        Alert.alert('Đăng nhập', 'Đã xảy ra lỗi vui lòng thử lại sau!');
       }
       console.log('error: ', error);
     }

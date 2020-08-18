@@ -7,19 +7,19 @@ export default function SettingButton({name, onPress}) {
     switch(name) {
         case 'feedback':
             icon = 'mail';
-            text = 'Send Feedback';
+            text = 'Gửi phản hồi';
             break;
         case 'rate':
             icon = 'star-half-sharp';
-            text = 'Rate Us';
+            text = 'Đánh giá ứng dụng';
             break;
         case 'like':
             icon = 'logo-facebook';
-            text = 'Like us on Facebook';
+            text = 'Like trang Facebook của chúng tôi';
             break;
         case 'logout':
             icon = 'log-out';
-            text = 'Log Out';
+            text = 'Đăng xuất';
             break;
     }
     return(
