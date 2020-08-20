@@ -7,19 +7,19 @@ export default function SettingButton({name, onPress}) {
     switch(name) {
         case 'feedback':
             icon = 'mail';
-            text = 'Gửi phản hồi';
+            text = 'Gửi ý kiến phản hồi';
             break;
         case 'rate':
             icon = 'star-half-sharp';
-            text = 'Đánh giá ứng dụng';
+            text = 'Đánh giá ToeicBot trên CH Play';
             break;
         case 'like':
             icon = 'logo-facebook';
-            text = 'Like trang Facebook của chúng tôi';
+            text = 'Like trang Facebook của ToeicBot';
             break;
-        case 'logout':
-            icon = 'log-out';
-            text = 'Đăng xuất';
+        case 'share':
+            icon = 'arrow-redo';
+            text = 'Chia sẻ với bạn bè của bạn';
             break;
     }
     return(
@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: 'gainsboro'
+        borderBottomColor: 'gainsboro',
     },
     icon: {
-        margin: 15
+        margin: 20
     },
     text: {
-        fontSize: 16
+        fontSize: 15
     }
 })

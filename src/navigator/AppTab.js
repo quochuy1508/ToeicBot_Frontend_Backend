@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createStackNavigator} from '@react-navigation/stack';

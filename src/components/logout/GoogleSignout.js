@@ -6,7 +6,7 @@ import {
   import {signOut} from '../../redux/actions/loginAction';
   import {connect} from 'react-redux';
   import AsyncStorage from '@react-native-community/async-storage';
-  import Button from '../common/SettingButton';
+  import Icon from 'react-native-vector-icons/Ionicons';
 
   class GoogleLogout extends Component {
     _removeUser = async () => {
@@ -43,7 +43,7 @@ import {
     };
     render() {
       return (
-        <Button name='logout' onPress={this._onPress}/>
+        <Icon name='log-out-outline' size={30} color='gray' onPress={this._onPress}/>
       );
     }
   }  
