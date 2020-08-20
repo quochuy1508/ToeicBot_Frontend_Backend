@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, ImageBackground, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './style';
-import Button from '../../components/common/ProfileButton';
+import Logout from '../../components/logout';
+import Button from '../../components/common/SettingButton';
 
 function ProfileScreen() {
   const [info, setInfo] = useState({});
-  const [level, setLevel] = useState(0);
-  let listLevel = ['450', '650', '850'];
-  
+
   async function getUserInfo() {
       try {
       const jsonValue = await AsyncStorage.getItem('user');
@@ -21,24 +20,26 @@ function ProfileScreen() {
       getUserInfo()
   },[]);
 
-  const onPress = (id) => {
-    setLevel(id);
-  }
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.info} source={{uri: info.photo}} imageStyle={{opacity: 0.4}} resizeMode="cover">
-        <View style={styles.text}>
-          <Text style={styles.name}>{info.name}</Text>
-          <Text style={{color: 'white'}}>{info.email}</Text>
+      <View style={styles.bar}>
+        <View style={styles.info}>
+          <Image source={{uri: info.photo}} style={styles.avt}/>
+          <View style={styles.text}>
+            <Text style={styles.name}>{info.name}</Text>
+            <Text style={{color: 'gray'}}>{info.email}</Text>
+          </View>
         </View>
-        <Image source={{uri: info.photo}} style={styles.avt}/>
-      </ImageBackground>
-      <View style={styles.level}>
-        <Text style={{color: 'white'}}>Trình độ TOEIC mong muốn đạt được: </Text>
-        <Text style={{color: 'white', fontWeight: 'bold'}}>{listLevel[level]}+</Text>
+        <View style={styles.logout}>
+          <Logout />
+        </View>
       </View>
-      <View style={{flex: 8, alignItems: "center"}}>
-        {listLevel.map((value, id) => <Button name={value} key={value} active={id == level} onPress={() => onPress(id)}/>)}
+      <View style={{flex: 3}}>
+        <Button name='feedback'/>
+        <Button name='like'/>
+        <Button name='rate'/>
+        <Button name='share'/>
+        <View style={{flex: 4}} />
       </View>
     </View>
   );

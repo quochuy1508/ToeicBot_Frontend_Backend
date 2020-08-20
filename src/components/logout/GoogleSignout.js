@@ -6,7 +6,7 @@ import {
   import {signOut} from '../../redux/actions/loginAction';
   import {connect} from 'react-redux';
   import AsyncStorage from '@react-native-community/async-storage';
-  import Button from '../common/SettingButton';
+  import Icon from 'react-native-vector-icons/Ionicons';
 
   class GoogleLogout extends Component {
     _removeUser = async () => {
@@ -18,14 +18,14 @@ import {
     }
     _onPress = () => {
       Alert.alert(
-        'Log Out',
-        'Do you want to log out?',
+        'Đăng xuất',
+        'Bạn muốn đăng xuất?',
         [
           {
-            text: 'Cancel',
+            text: 'Hủy',
             style: 'cancel'
           },
-          { text: 'OK', onPress: () => this._signOut()}
+          { text: 'Đồng ý', onPress: () => this._signOut()}
         ],
         { cancelable: true }
       );
@@ -36,14 +36,14 @@ import {
         await GoogleSignin.signOut();
         this._removeUser();
         this.props.signOut();
-        Alert.alert("Log Out","Logged out successfully!");
+        Alert.alert("Đăng xuất","Đăng xuất thành công!");
       } catch (error) {
         console.error(error);
       }
     };
     render() {
       return (
-        <Button name='logout' onPress={this._onPress}/>
+        <Icon name='log-out-outline' size={30} color='black' onPress={this._onPress}/>
       );
     }
   }  

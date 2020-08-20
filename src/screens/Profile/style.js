@@ -6,30 +6,34 @@ const styles = StyleSheet.create({
       backgroundColor: 'white', 
     },
     info: {
-      flex: 3, 
+      flex: 4,
+      flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: 'mediumblue',
+    },
+    bar: {
+      flex: 1, 
+      flexDirection: 'row',
+      borderBottomWidth: 1,
+      borderBottomColor: 'gainsboro',
+    },
+    logout: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     avt: {
-      width: 75, 
-      height: 75, 
-      borderRadius: 38, 
-    },
-    name: {
-      color: 'white', 
-      fontWeight: 'bold', 
-      fontSize: 18
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      margin: 20,
     },
     text: {
-      alignItems: 'center',
-      margin: 15,
+      height: 60,
     },
-    level :{
-      flex: 1, 
-      backgroundColor: 'mediumblue', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      flexDirection: 'row',
+    name: {
+      fontWeight: 'bold', 
+      fontSize: 15, 
+      color: 'black',
     }
   });
 

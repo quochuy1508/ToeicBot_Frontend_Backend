@@ -5,7 +5,7 @@ import styles from './styles';
 export default function NotificationScreen() {
     return(
         <View style={styles.container}>
-            <Text style={styles.text}>You have no notification!</Text>
+            <Text style={styles.text}>Bạn không có thông báo nào!</Text>
         </View>
     )
 }
