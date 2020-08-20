@@ -43,7 +43,7 @@ import {
     };
     render() {
       return (
-        <Icon name='log-out-outline' size={30} color='gray' onPress={this._onPress}/>
+        <Icon name='log-out-outline' size={30} color='black' onPress={this._onPress}/>
       );
     }
   }  

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
       flex: 1, 
       flexDirection: 'row',
       borderBottomWidth: 1,
-      borderBottomColor: 'gainsboro'
+      borderBottomColor: 'gainsboro',
     },
     logout: {
       flex: 1,
@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
     },
     text: {
       height: 60,
+    },
+    name: {
+      fontWeight: 'bold', 
+      fontSize: 15, 
+      color: 'black',
     }
   });
 

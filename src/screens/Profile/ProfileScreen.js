@@ -26,7 +26,7 @@ function ProfileScreen() {
         <View style={styles.info}>
           <Image source={{uri: info.photo}} style={styles.avt}/>
           <View style={styles.text}>
-            <Text style={{fontWeight: 'bold', fontSize: 15}}>{info.name}</Text>
+            <Text style={styles.name}>{info.name}</Text>
             <Text style={{color: 'gray'}}>{info.email}</Text>
           </View>
         </View>
