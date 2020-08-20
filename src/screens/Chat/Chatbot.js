@@ -1,34 +1,31 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
-import database from '@react-native-firebase/database';
-import usersCollection from '../../../server/collections/usersCollection';
+import usersCollection, {
+  database,
+} from '../../../server/collections/usersCollection';
 import AsyncStorage from '@react-native-community/async-storage';
-
 function Chatbot({userId}) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello ',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'BOT',
-          avatar: require('../../assets/logo.png'),
-        },
-      },
-    ]);
+    getData();
   }, []);
 
-  const getData = () => {
-    database.ref(`notes/`).on('value', function (snapshot) {
-      setData(snapshot.val());
+  const getData = async () => {
+    const user = JSON.parse(await AsyncStorage.getItem('user'));
+    await database.ref(`/${user.id}`).on('value', (snapshot) => {
+      console.log('snapshot: ', snapshot);
+      if (snapshot && Object.keys(snapshot).length > 0) {
+        console.log('snapshot 1: ', snapshot.val());
+        setMessages(Object.values(snapshot.val()).map((e) => e[0]) || {});
+      } else {
+        // await usersCollection.writeUser();
+      }
     });
   };
   const onSend = useCallback(async (messages = []) => {
     const user = await AsyncStorage.getItem('user');
+    console.log('messages: ', messages);
     await usersCollection.writeRecord(user, messages);
     setMessages((previousMessages) => {
       return GiftedChat.append(previousMessages, messages);
