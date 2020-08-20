@@ -1,6 +1,5 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import {Text, View, StyleSheet, Image} from 'react-native';
 
 function Logo({logosize, textsize, color}) {
   const styles = StyleSheet.create({
@@ -8,6 +7,10 @@ function Logo({logosize, textsize, color}) {
       flexDirection: 'row',
       alignItems: 'center',
     },
+    img: {
+      width: logosize,
+      height: logosize
+    }, 
     appName: {
       fontWeight: 'bold',
       fontSize: textsize,
@@ -17,8 +20,8 @@ function Logo({logosize, textsize, color}) {
   });
   return (
     <View style={styles.logo}>
-      <Icon name="robot" color="deepskyblue" size={logosize} />
-      <Text style={styles.appName}>BotStudy</Text>
+      <Image source={require("../../assets/logo.png")} style={styles.img}/>
+      <Text style={styles.appName}>ToeicBot</Text>
     </View>
   );
 }

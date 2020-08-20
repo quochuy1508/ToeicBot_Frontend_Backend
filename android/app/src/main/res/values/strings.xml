@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">eduChat</string>
+    <string name="app_name">ToeicBot</string>
+    <string name="facebook_app_id">307157060338107</string>
+    <string name="fb_login_protocol_scheme">fb307157060338107</string>
 </resources>

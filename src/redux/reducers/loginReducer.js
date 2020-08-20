@@ -1,4 +1,4 @@
-import {PROCESSING_AUTHENTICATE_USER} from '../actions/loginAction';
+import {PROCESSING_AUTHENTICATE_USER, LOG_OUT} from '../actions/loginAction';
 
 const users = (state = {}, action) => {
   switch (action.type) {
@@ -7,7 +7,8 @@ const users = (state = {}, action) => {
         ...state,
         session: action.session,
       };
-
+    case LOG_OUT:
+      return {};
     default:
       return state;
   }

@@ -12,6 +12,7 @@ const loginEpic = (action$) =>
   action$.pipe(
     ofType(REQUEST_AUTHENTICATE_USER),
     map(({payload}) => {
+      console.log('payload: ', payload);
       if (Object.keys(payload).length > 0)
         return processAuthenticateUser(AUTHENTICATED, payload);
       else return processAuthenticateUser(NOT_AUTHENTICATED, {});

@@ -5,12 +5,24 @@ import {
 } from '@react-native-community/google-signin';
 import React, {Component} from 'react';
 import {requestAuthenticateUser} from '../../redux/actions/loginAction';
+import {Alert} from 'react-native';
 import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class GoogleButton extends Component {
   state = {
     userInfo: {},
   };
+
+  _storeUser = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('user', jsonValue)
+    } catch (e) {
+      // saving error
+    }
+  }
+
   _signIn = async () => {
     try {
       GoogleSignin.configure({
@@ -19,35 +31,32 @@ class GoogleButton extends Component {
       });
       await GoogleSignin.hasPlayServices();
       const info = await GoogleSignin.signIn();
-      alert('login success');
+      Alert.alert('Đăng nhập', 'Đăng nhập thành công!');
       this.setState(
         {
           userInfo: info.user,
         },
         () => this.props.requestAuthenticateUser(info.user),
       );
+      this._storeUser(info.user);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
+        Alert.alert('Đăng nhập', 'Hãy chọn tài khoản Google của bạn!');
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
+        Alert.alert('Đăng nhập', 'Đang đăng nhập!');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
+        Alert.alert('Đăng nhập', 'Dịch vụ Play không khả dụng hoặc lỗi thời!');
       } else {
-        // some other error happened
+        Alert.alert('Đăng nhập', 'Đã xảy ra lỗi vui lòng thử lại sau!');
       }
       console.log('error: ', error);
-      alert('login error');
     }
   };
   render() {
     return (
       <GoogleSigninButton
-        style={{width: 250, height: 48}}
         size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
         onPress={() => this._signIn()}
-        // disabled={this.state.isSigninInProgress}
       />
     );
   }
