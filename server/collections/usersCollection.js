@@ -16,11 +16,8 @@ export default {
   },
   writeRecord: async (user, messages) => {
     try {
-      // console.log('user: ', user);
-      // console.log('messages: ', messages);
       const infoUser = JSON.parse(user);
-      // const message = JSON.parse(messages[0]);
-
+      console.log('messages: ', messages);
       await database
         .ref(`${infoUser.id}`)
         .push(messages)
