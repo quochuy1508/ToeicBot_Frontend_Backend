@@ -39,21 +39,25 @@ export default class Chatbot extends React.Component {
 
   getData = async () => {
     const user = JSON.parse(await AsyncStorage.getItem('user'));
-    await database.ref(`/${user.id}`).on('value', (snapshot) => {
-      const value = Object.values(snapshot);
-      if (value && Array.isArray(value) && value[0]['exists']) {
-        const messages = Object.values(value[0]['value']);
-        // console.log('messages: ', messages);
-        this.setState(() => {
-          return {
-            messages: messages,
-          };
-        });
-        // setMessages(messages);
-      } else {
-        // setMessages([]);
-      }
-    });
+    await database
+      .ref(`/${user.id}`)
+      .orderByChild('database/createdAt')
+      // .orderBy('createdAt', 'desc')
+      .on('value', (snapshot) => {
+        const value = Object.values(snapshot);
+        if (value && Array.isArray(value) && value[0]['exists']) {
+          const messages = Object.values(value[0]['value']);
+          console.log('messages: ', messages);
+          this.setState(() => {
+            return {
+              messages: messages,
+            };
+          });
+          // setMessages(messages);
+        } else {
+          // setMessages([]);
+        }
+      });
   };
   UNSAFE_componentWillMount() {
     this._isMounted = true;
@@ -106,7 +110,6 @@ export default class Chatbot extends React.Component {
     messages[0].sent = true;
     messages[0].received = true;
     messages[0].createdAt = new Date(messages[0].createdAt).getTime();
-    console.log('messages send: ', messages);
     const user = await AsyncStorage.getItem('user');
     await usersCollection.writeRecord(user, messages[0]);
 
@@ -116,15 +119,11 @@ export default class Chatbot extends React.Component {
       (result) => this.handleGoogleResponse(result),
       (error) => console.log(error),
     );
-    // for demo purpose
-    // this.answerDemo(messages);
   }
 
-  handleGoogleResponse(result) {
-    console.log('result: ', result);
-    // let text = result.queryResult.fulfillmentMessages[0].text.text[0] ? "A" : "B";
-    let text = 'Response from bot';
-    this.onReceive(text);
+  async handleGoogleResponse(result) {
+    let text = result.queryResult.fulfillmentMessages[0].text.text[0];
+    await this.onReceive(text);
   }
 
   sendBotResponse(text) {
@@ -145,7 +144,7 @@ export default class Chatbot extends React.Component {
     const dataBot = {
       _id: Math.round(Math.random() * 1000000),
       text: text,
-      createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+      createdAt: new Date().getTime(),
       user: {
         _id: 2,
         name: 'React Native',
@@ -155,7 +154,7 @@ export default class Chatbot extends React.Component {
   }
 
   renderCustomActions(props) {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'android') {
       return <CustomActions {...props} />;
     }
     const options = {
