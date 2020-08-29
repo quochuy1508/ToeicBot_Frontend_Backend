@@ -24,6 +24,8 @@ target 'eduChat' do
 
   pod 'RNFBDatabase', :path => '../node_modules/@react-native-firebase/database'
 
+  pod 'react-native-dialogflow', :path => '../node_modules/react-native-dialogflow'
+
   target 'eduChatTests' do
     inherit! :complete
     # Pods for testing
