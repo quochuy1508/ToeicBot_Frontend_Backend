@@ -9,7 +9,6 @@ export default {
   orderingRecord: async (ref) => {
     try {
       const data = await database().ref(ref).orderByValue().once('value');
-      console.log('data: ', data);
     } catch (error) {
       console.log('error: ', error);
     }

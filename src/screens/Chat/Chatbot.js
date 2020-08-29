@@ -1,52 +1,3 @@
-// import React, {useState, useCallback, useEffect} from 'react';
-// import {GiftedChat} from 'react-native-gifted-chat';
-// import usersCollection, {
-//   database,
-// } from '../../../server/collections/usersCollection';
-// import AsyncStorage from '@react-native-community/async-storage';
-// function Chatbot({userId}) {
-//   const [messages, setMessages] = useState([]);
-
-//   useEffect(() => {
-//     getData();
-//   }, []);
-
-//   const getData = async () => {
-//     const user = JSON.parse(await AsyncStorage.getItem('user'));
-//     await database.ref(`/${user.id}`).on('value', (snapshot) => {
-//       const value = Object.values(snapshot);
-//       console.log('value: ', value);
-//       if (value && Array.isArray(value) && value[0]['exists']) {
-//         console.log('snapshot 1: ', snapshot.val());
-//         const messages = Object.values(value[0]['value']).map((e) => e[0]);
-//         // console.log('messages: ', messages);
-//         setMessages(messages);
-//       } else {
-//         setMessages([]);
-//       }
-//     });
-//   };
-//   const onSend = useCallback(async (messages = []) => {
-//     const user = await AsyncStorage.getItem('user');
-//     console.log('messages: ', messages);
-//     await usersCollection.writeRecord(user, messages);
-//     // setMessages((previousMessages) => {
-//     //   return GiftedChat.append(previousMessages, messages);
-//     // });
-//   }, []);
-
-//   return (
-//     <GiftedChat
-//       messages={messages}
-//       onSend={(messages) => onSend(messages)}
-//       user={{
-//         _id: 1,
-//       }}
-//     />
-//   );
-// }
-
-// export default Chatbot;
 import React from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import usersCollection, {
@@ -56,6 +7,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import CustomView from './CustomView';
+import {Dialogflow_V2} from 'react-native-dialogflow';
+import {dialogflowConfig} from '../../helpers/env';
+
+const BOT_USER = {
+  _id: 2,
+  name: 'FAQ Bot',
+  avatar: 'https://i.imgur.com/7k12EPD.png',
+};
 
 export default class Chatbot extends React.Component {
   constructor(props) {
@@ -105,6 +64,15 @@ export default class Chatbot extends React.Component {
     this._isMounted = false;
   }
 
+  componentDidMount() {
+    Dialogflow_V2.setConfiguration(
+      dialogflowConfig.client_email,
+      dialogflowConfig.private_key,
+      Dialogflow_V2.LANG_ENGLISH_US,
+      dialogflowConfig.project_id,
+    );
+  }
+
   onLoadEarlier() {
     this.setState((previousState) => {
       return {
@@ -142,62 +110,41 @@ export default class Chatbot extends React.Component {
     const user = await AsyncStorage.getItem('user');
     await usersCollection.writeRecord(user, messages[0]);
 
+    let message = messages[0].text;
+    await Dialogflow_V2.requestQuery(
+      message,
+      (result) => this.handleGoogleResponse(result),
+      (error) => console.log(error),
+    );
     // for demo purpose
-    this.answerDemo(messages);
+    // this.answerDemo(messages);
   }
 
-  answerDemo(messages) {
-    if (messages.length > 0) {
-      if (messages[0].image || messages[0].location || !this._isAlright) {
-        this.setState((previousState) => {
-          return {
-            typingText: 'React Native is typing',
-          };
-        });
-      }
-    }
+  handleGoogleResponse(result) {
+    console.log('result: ', result);
+    // let text = result.queryResult.fulfillmentMessages[0].text.text[0] ? "A" : "B";
+    let text = 'Response from bot';
+    this.onReceive(text);
+  }
 
-    setTimeout(() => {
-      if (messages.length > 0) {
-        if (messages[0].image) {
-          this.onReceive('Nice picture!');
-        } else if (messages[0].location) {
-          this.onReceive('My favorite place');
-        } else {
-          if (!this._isAlright) {
-            this._isAlright = true;
-            this.onReceive('Alright');
-          }
-        }
-      }
+  sendBotResponse(text) {
+    let msg = {
+      _id: this.state.messages.length + 1,
+      text,
+      createdAt: new Date(),
+      user: BOT_USER,
+    };
 
-      this.setState((previousState) => {
-        return {
-          typingText: null,
-        };
-      });
-    }, 1000);
+    this.setState((previousState) => ({
+      messages: GiftedChat.append(previousState.messages, [msg]),
+    }));
   }
 
   async onReceive(text) {
-    // this.setState((previousState) => {
-    //   return {
-    //     messages: GiftedChat.append(previousState.messages, {
-    //       _id: Math.round(Math.random() * 1000000),
-    //       text: text,
-    //       createdAt: new Date(),
-    //       user: {
-    //         _id: 2,
-    //         name: 'React Native',
-    //         // avatar: 'https://facebook.github.io/react/img/logo_og.png',
-    //       },
-    //     }),
-    //   };
-    // });
     const user = await AsyncStorage.getItem('user');
     const dataBot = {
       _id: Math.round(Math.random() * 1000000),
-      text: 'Are you building a chat app?',
+      text: text,
       createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
       user: {
         _id: 2,
