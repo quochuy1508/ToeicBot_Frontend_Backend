@@ -68,9 +68,12 @@ export default function SettingButton({name}) {
                   + encodeURI('https://play.google.com/store/apps/details?id=com.whatsapp') 
                   + '&quote=' 
                   + encodeURI('Xin chào mọi người! Đây là một ứng dụng rất hay để học Toeic cùng Chatbot. Hãy tham gia cùng mình nhé!');
+            const url2 = "fb://faceweb/f?href=" + url;
             var onPress = () => {
-                Linking.canOpenURL(url).then((supported) => {
+                Linking.canOpenURL(url2).then((supported) => {
                     if (supported) {
+                      Linking.openURL(url2);
+                    } else {
                       Linking.openURL(url);
                     }
                 });
