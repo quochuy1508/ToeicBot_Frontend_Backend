@@ -35,6 +35,7 @@ import java.util.List;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import co.apptailor.googlesignin.RNGoogleSigninPackage;  // <--- import
+import com.reactnativecommunity.cameraroll.CameraRollPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -60,7 +61,8 @@ public class MainApplication extends Application implements ReactApplication {
                             new FBSDKPackage(),
                             new RNGoogleSigninPackage(),
                             new SplashScreenReactPackage(), // <-- this needs to be in the list
-                            new AsyncStoragePackage()
+                            new AsyncStoragePackage(),
+                            new CameraRollPackage()
                     );
                 }
 

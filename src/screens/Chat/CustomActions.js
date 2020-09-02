@@ -6,6 +6,7 @@ import {
   View,
   Text,
   ViewPropTypes,
+  PermissionsAndroid,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -18,9 +19,49 @@ export default class CustomActions extends React.Component {
     this._images = [];
     this.state = {
       modalVisible: false,
+      num: 0,
+      selected: [],
+      rollPermissionExists: false,
     };
     this.onActionsPress = this.onActionsPress.bind(this);
     this.selectImages = this.selectImages.bind(this);
+    this.getSelectedImages = this.getSelectedImages.bind(this);
+    this.requestExternalStoreageRead = this.requestExternalStoreageRead.bind(
+      this,
+    );
+  }
+
+  componentDidMount() {
+    this.requestExternalStoreageRead();
+  }
+
+  async requestExternalStoreageRead() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.setState({rollPermissionExists: true});
+      } else {
+        this.setState({rollPermissionExists: false});
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+  async getSelectedImages(images, current) {
+    if (await this.requestExternalStoreageRead()) {
+      var num = images.length;
+
+      this.setState({
+        num: num,
+        selected: images,
+      });
+
+      console.log(current);
+      console.log(this.state.selected);
+    }
   }
 
   setImages(images) {
@@ -147,12 +188,17 @@ export default class CustomActions extends React.Component {
             this.setModalVisible(false);
           }}>
           {this.renderNavBar()}
-          <CameraRollPicker
-            maximum={10}
-            imagesPerRow={4}
-            callback={this.selectImages}
-            selected={[]}
-          />
+          {this.state.rollPermissionExists && (
+            <CameraRollPicker
+              groupTypes="SavedPhotos"
+              maximum={3}
+              selected={this.state.selected}
+              assetType="Photos"
+              imagesPerRow={3}
+              imageMargin={5}
+              callback={this.getSelectedImages}
+            />
+          )}
         </Modal>
         {this.renderIcon()}
       </TouchableOpacity>

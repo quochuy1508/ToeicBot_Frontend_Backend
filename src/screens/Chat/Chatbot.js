@@ -106,19 +106,19 @@ export default class Chatbot extends React.Component {
     //     messages: GiftedChat.append(previousState.messages, messages),
     //   };
     // });
+    console.log('messages: ', messages);
+    // messages[0].sent = true;
+    // messages[0].received = true;
+    // messages[0].createdAt = new Date(messages[0].createdAt).getTime();
+    // const user = await AsyncStorage.getItem('user');
+    // await usersCollection.writeRecord(user, messages[0]);
 
-    messages[0].sent = true;
-    messages[0].received = true;
-    messages[0].createdAt = new Date(messages[0].createdAt).getTime();
-    const user = await AsyncStorage.getItem('user');
-    await usersCollection.writeRecord(user, messages[0]);
-
-    let message = messages[0].text;
-    await Dialogflow_V2.requestQuery(
-      message,
-      (result) => this.handleGoogleResponse(result),
-      (error) => console.log(error),
-    );
+    // let message = messages[0].text;
+    // await Dialogflow_V2.requestQuery(
+    //   message,
+    //   (result) => this.handleGoogleResponse(result),
+    //   (error) => console.log(error),
+    // );
   }
 
   async handleGoogleResponse(result) {
