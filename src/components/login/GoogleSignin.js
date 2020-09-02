@@ -31,7 +31,6 @@ class GoogleButton extends Component {
       });
       await GoogleSignin.hasPlayServices();
       const info = await GoogleSignin.signIn();
-      Alert.alert('Đăng nhập', 'Đăng nhập thành công!');
       this.setState(
         {
           userInfo: info.user,
@@ -56,6 +55,7 @@ class GoogleButton extends Component {
     return (
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
         onPress={() => this._signIn()}
       />
     );

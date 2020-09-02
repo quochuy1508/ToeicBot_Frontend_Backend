@@ -36,7 +36,6 @@ import {
         await GoogleSignin.signOut();
         this._removeUser();
         this.props.signOut();
-        Alert.alert("Đăng xuất","Đăng xuất thành công!");
       } catch (error) {
         console.error(error);
       }

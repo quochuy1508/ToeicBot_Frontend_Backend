@@ -175,7 +175,7 @@ export default class Chatbot extends React.Component {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: '#f0f0f0',
+            backgroundColor: 'white',
           },
         }}
       />

@@ -39,7 +39,7 @@ function ProfileScreen() {
         <Button name='like'/>
         <Button name='rate'/>
         <Button name='share'/>
-        <View style={{flex: 4}} />
+        <View style={{flex: 2}} />
       </View>
     </View>
   );
