@@ -14,3 +14,17 @@ export const dialogflowConfig = {
   client_x509_cert_url:
     'https://www.googleapis.com/robot/v1/metadata/x509/intergration-react-native%40t-v-n-sskv.iam.gserviceaccount.com',
 };
+// {
+//   type: 'service_account',
+//   project_id: 'toeicbot-wlbp',
+//   private_key_id: '34ce0a76a124ab0702779ce04893455fd1a611e7',
+//   private_key:
+//     '-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQCzQR56gS3DMVd3\nPrx1oy9Uh0kBwfyTk3KyXV3KcXQ86RSxGtiBsewXnchFZfoNKxFSt5wiTdIF43mt\npx9W7TS5vLx+HhLA6DXJfeW4WXISjve+6mUKFrGng1jhI3UcGIVbBWcKdhmd/qlr\nHZe4n9gvf+EnmN7Rd6f6Jf8xQI2lUKfxam+1HFmr9fU6JAyRL+9RO0Y8DV9Un1p4\nWjpSbKRiVH/uegYE3Nxqt+DluEq5nD1woBMg+X1kIfIagxmO1CmLC3tO1yuqZE7+\nHdHD0o2v8osyr6ejv/EG8Onc+tgNXS+RBIAnMQQg/w4NKeUj+/wupxzpW52CoRld\nLFSwEarTAgMBAAECgf8W83hlU3ozLnN2Qudsmj9Yr8DFsbtsRjvbDFIu0lfzO6u/\n5OjwI/QzEeQ9N1+T3kUgp34dWBJTIHesxEdbaCAfNieW4dETGuEdeY9h7ryP3KHb\n7F/nBzm346eaD35g4aZqVmMwZXziL5yd/fMZzOvEt2IAPiC7IuxCjNPKepXhIslR\nW0EbMB6fOzVGL9Lh+Fm3nh6i+SHXapBCuLylLIgxpONVTJt+bEBgJKtJC15bWl/U\nu1frBV2U99clBYNWvgU8EDa0qgE/DmbLWWlNjzlQGzkp/PU/TbnabSyrdpbrhsUh\nsVtg6oxspjM0WsHxsQRQwGIgKJbWCrcQDB72RMECgYEA+XiCp8XpNiXw4lWENK43\nJTfEB+3Ztc/PG5MeZwsZ+Pe84HO3jDfoahonL0qqgHvtMj9iOr5tAPKPF/1+Jflh\nyyhDkfQLjVPI+9nz0YCPsZ0b4VRiBBceLAgToAOMN0+Si6GEtWk69OgipdivW1aS\n+SzayVgV4rGKfqQAOdUVYvMCgYEAt/ImIgr8cIGLLHNUcq3pFW+gb4UEAODa96f/\nGU72KrZzZ0AFwpNxqbFHcz+Ry3IwtZQ1imody+lTrPmmbpmG/j2t2O9GgKpOPOCv\nxV2F53vdwcptqYVhwucca88+nAMtYusEOGUMUtp2VkGA6KnLYKzT4tiJ6NoLW2zt\nDqIj0KECgYAjpvtVKs2XdXilf/8y4Cr1YLDdSTqx5w78K9xOcaG2mQEfOqpimaLX\ndwFemtcfIZbWdYR+TLSbTA7zKMEcgDVfqVNuymfUPMMeaxmTOUJP6doQK9UOLJed\nR1I2rgsd5HtXBTBIFM/eLEa3WO5GqWq7vZNO7w3Bpgna62k02qUBzQKBgE2j6bCI\nzpB2PVYfv88/1Jf1q9QmYtA0GHhb8nKuP3070W4NOeEs9tbXOv9MH6+tnR2nVwn7\nTGRbMbRbE4KvTqlVQ2HDbRC10Zwkgkxd8z0HrUw0syDQabkob3iZ2yViue98nyVm\nkVMPXs99inmp4WwGxtCC8YLVNeH7EfwRN+jBAoGBAJN+xKHDz4V5Ybo7M64bSywJ\ni+T8st4Cyp1J7WDVir+Pa6u8220TRZAj+MOS1XvZYOJJhSQFkLM5VupUdjXQoc4C\n0geKPecM0ZmZ3SlvzxNIPTd/jE9HrgwXioBuzpJyBWcjzGk9cNvCUjb4hDKjUUIH\nXtHUqcRBKPulSXDSJB7U\n-----END PRIVATE KEY-----\n',
+//   client_email: 'dialogflow-jnaguj@toeicbot-wlbp.iam.gserviceaccount.com',
+//   client_id: '105259728824681408361',
+//   auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+//   token_uri: 'https://oauth2.googleapis.com/token',
+//   auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+//   client_x509_cert_url:
+//     'https://www.googleapis.com/robot/v1/metadata/x509/dialogflow-jnaguj%40toeicbot-wlbp.iam.gserviceaccount.com',
+// };

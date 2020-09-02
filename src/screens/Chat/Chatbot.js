@@ -33,8 +33,19 @@ export default class Chatbot extends React.Component {
     this.renderBubble = this.renderBubble.bind(this);
     this.renderFooter = this.renderFooter.bind(this);
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
+    this.compare = this.compare.bind(this);
 
     this._isAlright = null;
+  }
+
+  compare(a, b) {
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    }
+    if (a.createdAt < b.createdAt) {
+      return 1;
+    }
+    return 0;
   }
 
   getData = async () => {
@@ -46,7 +57,7 @@ export default class Chatbot extends React.Component {
       .on('value', (snapshot) => {
         const value = Object.values(snapshot);
         if (value && Array.isArray(value) && value[0]['exists']) {
-          const messages = Object.values(value[0]['value']);
+          const messages = Object.values(value[0]['value']).sort(this.compare);
           console.log('messages: ', messages);
           this.setState(() => {
             return {
@@ -106,7 +117,7 @@ export default class Chatbot extends React.Component {
     //     messages: GiftedChat.append(previousState.messages, messages),
     //   };
     // });
-
+    console.log('messages: ', messages);
     messages[0].sent = true;
     messages[0].received = true;
     messages[0].createdAt = new Date(messages[0].createdAt).getTime();
@@ -122,6 +133,7 @@ export default class Chatbot extends React.Component {
   }
 
   async handleGoogleResponse(result) {
+    console.log(result);
     let text = result.queryResult.fulfillmentMessages[0].text.text[0];
     await this.onReceive(text);
   }

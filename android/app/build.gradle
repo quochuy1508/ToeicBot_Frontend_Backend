@@ -223,6 +223,7 @@ dependencies {
     implementation "com.google.firebase:firebase-database:19.3.1"
     implementation "com.google.firebase:firebase-firestore:21.5.0"
     implementation 'com.android.support:multidex:1.0.3'
+    implementation project(':@react-native-community_cameraroll')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
