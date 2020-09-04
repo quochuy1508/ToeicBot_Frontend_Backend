@@ -16,6 +16,13 @@ const BOT_USER = {
   avatar: 'https://i.imgur.com/7k12EPD.png',
 };
 
+function linkify(text) {
+  var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+  return text.replace(urlRegex, function (url) {
+    return url;
+  });
+}
+
 export default class Chatbot extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +65,7 @@ export default class Chatbot extends React.Component {
         const value = Object.values(snapshot);
         if (value && Array.isArray(value) && value[0]['exists']) {
           const messages = Object.values(value[0]['value']).sort(this.compare);
-          console.log('messages: ', messages);
+          // console.log('messages: ', messages);
           this.setState(() => {
             return {
               messages: messages,
@@ -117,7 +124,6 @@ export default class Chatbot extends React.Component {
     //     messages: GiftedChat.append(previousState.messages, messages),
     //   };
     // });
-    console.log('messages: ', messages);
     messages[0].sent = true;
     messages[0].received = true;
     messages[0].createdAt = new Date(messages[0].createdAt).getTime();
@@ -153,6 +159,8 @@ export default class Chatbot extends React.Component {
 
   async onReceive(text) {
     const user = await AsyncStorage.getItem('user');
+    console.log('linkify: ', text.match(/\bhttps?:\/\/\S+/gi));
+    let listMessage = text.split('.').filter((e) => e.length > 0);
     const dataBot = {
       _id: Math.round(Math.random() * 1000000),
       text: text,
@@ -162,7 +170,23 @@ export default class Chatbot extends React.Component {
         name: 'React Native',
       },
     };
-    await usersCollection.writeRecord(user, dataBot);
+
+    await Promise.all(
+      listMessage.map((message) => {
+        // const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+        setTimeout(function () {
+          usersCollection.writeRecord(user, {
+            _id: Math.round(Math.random() * 1000000),
+            text: message,
+            createdAt: new Date().getTime(),
+            user: {
+              _id: 2,
+              name: 'React Native',
+            },
+          });
+        }, 300);
+      }),
+    );
   }
 
   renderCustomActions(props) {
