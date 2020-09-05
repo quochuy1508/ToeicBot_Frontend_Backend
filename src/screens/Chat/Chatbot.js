@@ -55,6 +55,7 @@ export default class Chatbot extends React.Component {
       .ref(`/${user.id}`)
       // .orderByChild('database/createdAt')
       // .orderBy('createdAt', 'desc')
+      .limitToLast(20)
       .on('value', (snapshot) => {
         const value = Object.values(snapshot);
         if (value && Array.isArray(value) && value[0]['exists']) {
@@ -113,11 +114,6 @@ export default class Chatbot extends React.Component {
   }
 
   async onSend(messages = []) {
-    // this.setState((previousState) => {
-    //   return {
-    //     messages: GiftedChat.append(previousState.messages, messages),
-    //   };
-    // });
     messages[0].sent = true;
     messages[0].received = true;
     messages[0].createdAt = new Date(messages[0].createdAt).getTime();
@@ -177,17 +173,17 @@ export default class Chatbot extends React.Component {
     await Promise.all(
       listMessage.map((message) => {
         // const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
-        setTimeout(function () {
-          usersCollection.writeRecord(user, {
-            _id: Math.round(Math.random() * 1000000),
-            text: message,
-            createdAt: new Date().getTime(),
-            user: {
-              _id: 2,
-              name: 'React Native',
-            },
-          });
-        }, 300);
+        // setTimeout(function () {
+        usersCollection.writeRecord(user, {
+          _id: Math.round(Math.random() * 1000000),
+          text: message,
+          createdAt: new Date().getTime(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+          },
+        });
+        // }, 300);
       }),
     );
   }
