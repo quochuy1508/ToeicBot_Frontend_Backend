@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
 import de.innfactory.apiai.RNApiAiPackage;
 
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
@@ -50,6 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
                 protected List<ReactPackage> getPackages() {
                     return Arrays.<ReactPackage>asList(
                             new MainReactPackage(),
+            new RNFSPackage(),
             new RNApiAiPackage(),
                             new ReactNativeFirebaseDatabasePackage(),
                             new ReactNativeFirebaseAppPackage(),

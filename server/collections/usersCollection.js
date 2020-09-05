@@ -16,11 +16,21 @@ export default {
   writeRecord: async (user, messages) => {
     try {
       const infoUser = JSON.parse(user);
-      console.log('messages: ', messages);
       await database
         .ref(`${infoUser.id}`)
         .push(messages)
         .then(() => console.log('Data set.'));
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  },
+  writeRecordLink: async (user, dataLink) => {
+    try {
+      const infoUser = JSON.parse(user);
+      await database
+        .ref(`${infoUser.id}-link`)
+        .push(dataLink)
+        .then(() => console.log('Data set link.'));
     } catch (error) {
       console.log('error: ', error);
     }
@@ -36,7 +46,7 @@ export default {
       let data = {};
       await database.ref(`/${user.id}`).on('value', (querySnapShot) => {
         data = querySnapShot.val() ? querySnapShot.val() : {};
-        console.log('data: '.data);
+        // console.log('data: '.data);
       });
 
       return data;

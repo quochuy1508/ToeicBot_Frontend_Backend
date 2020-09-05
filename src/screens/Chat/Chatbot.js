@@ -8,6 +8,7 @@ import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import CustomView from './CustomView';
 import {Dialogflow_V2} from 'react-native-dialogflow';
+import RNFS from 'react-native-fs';
 import {dialogflowConfig} from '../../helpers/env';
 
 const BOT_USER = {
@@ -15,13 +16,6 @@ const BOT_USER = {
   name: 'FAQ Bot',
   avatar: 'https://i.imgur.com/7k12EPD.png',
 };
-
-function linkify(text) {
-  var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
-  return text.replace(urlRegex, function (url) {
-    return url;
-  });
-}
 
 export default class Chatbot extends React.Component {
   constructor(props) {
@@ -59,7 +53,7 @@ export default class Chatbot extends React.Component {
     const user = JSON.parse(await AsyncStorage.getItem('user'));
     await database
       .ref(`/${user.id}`)
-      .orderByChild('database/createdAt')
+      // .orderByChild('database/createdAt')
       // .orderBy('createdAt', 'desc')
       .on('value', (snapshot) => {
         const value = Object.values(snapshot);
@@ -139,7 +133,7 @@ export default class Chatbot extends React.Component {
   }
 
   async handleGoogleResponse(result) {
-    console.log(result);
+    // console.log(result);
     let text = result.queryResult.fulfillmentMessages[0].text.text[0];
     await this.onReceive(text);
   }
@@ -159,7 +153,16 @@ export default class Chatbot extends React.Component {
 
   async onReceive(text) {
     const user = await AsyncStorage.getItem('user');
-    console.log('linkify: ', text.match(/\bhttps?:\/\/\S+/gi));
+    const link = text.match(/\bhttps?:\/\/\S+/gi);
+    if (link && link.length > 0) {
+      const dataLink = {
+        url: link[0],
+        image: 'https://source.unsplash.com/random/300x200',
+        title: Math.random() * 100000,
+      };
+      await usersCollection.writeRecordLink(user, dataLink);
+    }
+
     let listMessage = text.split('.').filter((e) => e.length > 0);
     const dataBot = {
       _id: Math.round(Math.random() * 1000000),
