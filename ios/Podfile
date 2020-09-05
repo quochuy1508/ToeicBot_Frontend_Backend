@@ -26,6 +26,8 @@ target 'eduChat' do
 
   pod 'react-native-dialogflow', :path => '../node_modules/react-native-dialogflow'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'eduChatTests' do
     inherit! :complete
     # Pods for testing
