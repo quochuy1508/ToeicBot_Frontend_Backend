@@ -157,8 +157,7 @@ export default class Chatbot extends React.Component {
     if (link && link.length > 0) {
       const dataLink = {
         url: link[0],
-        image:
-          'https://llv.edu.vn/media/2017/11/logo-toeic-15440892075481729847449.jpg',
+        image: 'https://source.unsplash.com/random/300x200',
         title: Math.random() * 100000,
       };
       await usersCollection.writeRecordLink(user, dataLink);
