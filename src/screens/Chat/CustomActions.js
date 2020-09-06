@@ -31,9 +31,9 @@ export default class CustomActions extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.requestExternalStoreageRead();
-  }
+  // componentDidMount() {
+  //   this.requestExternalStoreageRead();
+  // }
 
   async requestExternalStoreageRead() {
     try {

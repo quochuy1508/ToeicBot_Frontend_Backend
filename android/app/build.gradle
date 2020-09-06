@@ -225,6 +225,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(':@react-native-community_cameraroll')
     implementation project(':react-native-fs')
+    implementation project(':react-native-image-picker')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

@@ -1,70 +1,55 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   ViewPropTypes,
-} from 'react-native'
+} from 'react-native';
 
-import {
-  getLocationAsync,
-  pickImageAsync,
-  takePictureAsync,
-} from './mediaUtils'
+import {getLocationAsync, pickImageAsync, takePictureAsync} from './mediaUtils';
 
 export default class CustomActions extends React.Component {
   onActionsPress = () => {
-    const options = [
-      'Choose From Library',
-      'Take Picture',
-      'Send Location',
-      'Cancel',
-    ]
-    const cancelButtonIndex = options.length - 1
+    const options = ['Gửi Ảnh', 'Ghi Âm', 'Trở lại'];
+    const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions(
       {
         options,
         cancelButtonIndex,
       },
-      async buttonIndex => {
-        const { onSend } = this.props
+      async (buttonIndex) => {
+        const {onSend} = this.props;
         switch (buttonIndex) {
           case 0:
-            pickImageAsync(onSend)
-            return
-          case 1:
-            takePictureAsync(onSend)
-            return
-          case 2:
-            getLocationAsync(onSend)
+            takePictureAsync(onSend);
+            return;
           default:
         }
       },
-    )
-  }
+    );
+  };
 
   renderIcon = () => {
     if (this.props.renderIcon) {
-      return this.props.renderIcon()
+      return this.props.renderIcon();
     }
     return (
       <View style={[styles.wrapper, this.props.wrapperStyle]}>
         <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
       </View>
-    )
-  }
+    );
+  };
 
   render() {
     return (
       <TouchableOpacity
         style={[styles.container, this.props.containerStyle]}
-        onPress={this.onActionsPress}
-      >
+        onPress={this.onActionsPress}>
         {this.renderIcon()}
       </TouchableOpacity>
-    )
+    );
   }
 }
 
@@ -88,11 +73,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     textAlign: 'center',
   },
-})
+});
 
 CustomActions.contextTypes = {
   actionSheet: PropTypes.func,
-}
+};
 
 CustomActions.defaultProps = {
   onSend: () => {},
@@ -101,7 +86,7 @@ CustomActions.defaultProps = {
   containerStyle: {},
   wrapperStyle: {},
   iconTextStyle: {},
-}
+};
 
 CustomActions.propTypes = {
   onSend: PropTypes.func,
@@ -110,4 +95,4 @@ CustomActions.propTypes = {
   containerStyle: ViewPropTypes.style,
   wrapperStyle: ViewPropTypes.style,
   iconTextStyle: Text.propTypes.style,
-}
+};
