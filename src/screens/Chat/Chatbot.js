@@ -10,6 +10,7 @@ import CustomView from './CustomView';
 import {Dialogflow_V2} from 'react-native-dialogflow';
 import RNFS from 'react-native-fs';
 import {dialogflowConfig} from '../../helpers/env';
+import {getLinkPreview} from 'link-preview-js';
 
 const BOT_USER = {
   _id: 2,
@@ -141,18 +142,11 @@ export default class Chatbot extends React.Component {
   }
 
   async onReceive(text) {
+    console.log('text: ', text);
     const user = await AsyncStorage.getItem('user');
     const link = text.match(/\bhttps?:\/\/\S+/gi);
-    if (link && link.length > 0) {
-      const dataLink = {
-        url: link[0],
-        image: 'https://source.unsplash.com/random/300x200',
-        title: Math.random() * 100000,
-      };
-      await usersCollection.writeRecordLink(user, dataLink);
-    }
 
-    let listMessage = text.split('.').filter((e) => e.length > 0);
+    let listMessage = text.split(';').filter((e) => e.length > 0);
     const dataBot = {
       _id: Math.round(Math.random() * 1000000),
       text: text,
@@ -179,6 +173,31 @@ export default class Chatbot extends React.Component {
         // }, 300);
       }),
     );
+
+    if (link && link.length > 0) {
+      console.log('link: ', link[0]);
+      await getLinkPreview(link[0])
+        .then(async (data) => {
+          const dataLink = {
+            url: data.url,
+            image: data.images[0],
+            title: data.title,
+            description: data.description,
+          };
+          await usersCollection.writeRecordLink(user, dataLink);
+          await usersCollection.writeRecord(user, {
+            _id: Math.round(Math.random() * 1000000),
+            text: data.title + ' - ' + data.url,
+            image: data.images[0],
+            createdAt: new Date().getTime(),
+            user: {
+              _id: 2,
+              name: 'React Native',
+            },
+          });
+        })
+        .catch((error) => console.debug('error: ', error));
+    }
   }
 
   renderCustomActions(props) {
@@ -236,6 +255,8 @@ export default class Chatbot extends React.Component {
         user={{
           _id: 1, // sent messages should have same user._id
         }}
+        isAnimated
+        scrollToBottom
         renderActions={this.renderCustomActions}
         renderBubble={this.renderBubble}
         renderCustomView={this.renderCustomView}
