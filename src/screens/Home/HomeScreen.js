@@ -29,14 +29,7 @@ class HomeScreen extends Component {
           // console.log('messages: ', messages);
           this.setState(() => {
             return {
-              links: Object.values(value[0]['value']).push({
-                url:
-                  'https://www.anhngumshoa.com/tin-tuc/toeic-la-gi-bang-toeic-chung-chi-toeic-co-gia-tri-nhu-the-nao-36242.html',
-                image:
-                  'https://llv.edu.vn/media/2017/11/logo-toeic-15440892075481729847449.jpg',
-                title:
-                  'TOEIC là gì? Bằng TOEIC, chứng chỉ TOEIC có giá trị như thế nào?',
-              }),
+              links: Object.values(value[0]['value']),
             };
           });
         } else {

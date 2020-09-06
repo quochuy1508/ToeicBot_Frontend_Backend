@@ -23,6 +23,7 @@
     "@react-navigation/stack": "^5.8.0",
     "firebase": "^7.17.2",
     "fs": "^0.0.1-security",
+    "link-preview-js": "^2.0.4",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-camera-roll-picker": "^2.0.0",
