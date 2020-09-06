@@ -1,5 +1,13 @@
 import React from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Linking,
+} from 'react-native';
 import usersCollection, {
   database,
 } from '../../../server/collections/usersCollection';
@@ -37,6 +45,7 @@ export default class Chatbot extends React.Component {
     this.renderFooter = this.renderFooter.bind(this);
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
     this.compare = this.compare.bind(this);
+    this.renderMessageImage = this.renderMessageImage.bind(this);
 
     this._isAlright = null;
   }
@@ -102,6 +111,38 @@ export default class Chatbot extends React.Component {
     });
 
     this.getData();
+  }
+
+  renderMessageImage(props) {
+    const images = [
+      {
+        // Simplest usage.
+        url: props.currentMessage.image,
+        // You can pass props to <Image />.
+        props: {
+          // headers: ...
+        },
+      },
+      {
+        props: {
+          // Or you can set source directory.
+          source: props.currentMessage.image,
+        },
+      },
+    ];
+    return (
+      <TouchableOpacity
+        onPress={() =>
+          props.currentMessage.link
+            ? Linking.openURL(props.currentMessage.link)
+            : null
+        }>
+        <Image
+          source={{uri: props.currentMessage.image}}
+          style={{width: 200, height: 200}}
+        />
+      </TouchableOpacity>
+    );
   }
 
   async onSend(messages = []) {
@@ -187,7 +228,8 @@ export default class Chatbot extends React.Component {
           await usersCollection.writeRecordLink(user, dataLink);
           await usersCollection.writeRecord(user, {
             _id: Math.round(Math.random() * 1000000),
-            text: data.title + ' - ' + data.url,
+            text: data.title,
+            link: data.url,
             image: data.images[0],
             createdAt: new Date().getTime(),
             user: {
@@ -252,6 +294,7 @@ export default class Chatbot extends React.Component {
         loadEarlier={this.state.loadEarlier}
         onLoadEarlier={this.onLoadEarlier}
         isLoadingEarlier={this.state.isLoadingEarlier}
+        renderMessageImage={this.renderMessageImage}
         user={{
           _id: 1, // sent messages should have same user._id
         }}
