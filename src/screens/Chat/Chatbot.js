@@ -5,7 +5,7 @@ import usersCollection, {
 } from '../../../server/collections/usersCollection';
 import AsyncStorage from '@react-native-community/async-storage';
 import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
-import CustomActions from './CustomActions';
+import CustomActions from './component/CustomActions';
 import CustomView from './CustomView';
 import {Dialogflow_V2} from 'react-native-dialogflow';
 import RNFS from 'react-native-fs';
@@ -25,6 +25,7 @@ export default class Chatbot extends React.Component {
       loadEarlier: true,
       typingText: null,
       isLoadingEarlier: false,
+      numberCurrentMessage: 20,
     };
 
     this._isMounted = false;
@@ -55,6 +56,7 @@ export default class Chatbot extends React.Component {
       .ref(`/${user.id}`)
       // .orderByChild('database/createdAt')
       // .orderBy('createdAt', 'desc')
+      .limitToLast(this.state.numberCurrentMessage)
       .on('value', (snapshot) => {
         const value = Object.values(snapshot);
         if (value && Array.isArray(value) && value[0]['exists']) {
@@ -62,6 +64,7 @@ export default class Chatbot extends React.Component {
           // console.log('messages: ', messages);
           this.setState(() => {
             return {
+              isLoadingEarlier: false,
               messages: messages,
             };
           });
@@ -93,31 +96,14 @@ export default class Chatbot extends React.Component {
     this.setState((previousState) => {
       return {
         isLoadingEarlier: true,
+        numberCurrentMessage: this.state.numberCurrentMessage + 20,
       };
     });
 
-    setTimeout(() => {
-      if (this._isMounted === true) {
-        this.setState((previousState) => {
-          return {
-            messages: GiftedChat.prepend(
-              previousState.messages,
-              require('./data/old_messages.js'),
-            ),
-            loadEarlier: false,
-            isLoadingEarlier: false,
-          };
-        });
-      }
-    }, 1000); // simulating network
+    this.getData();
   }
 
   async onSend(messages = []) {
-    // this.setState((previousState) => {
-    //   return {
-    //     messages: GiftedChat.append(previousState.messages, messages),
-    //   };
-    // });
     messages[0].sent = true;
     messages[0].received = true;
     messages[0].createdAt = new Date(messages[0].createdAt).getTime();
@@ -125,15 +111,18 @@ export default class Chatbot extends React.Component {
     await usersCollection.writeRecord(user, messages[0]);
 
     let message = messages[0].text;
-    await Dialogflow_V2.requestQuery(
-      message,
-      (result) => this.handleGoogleResponse(result),
-      (error) => console.log(error),
-    );
+
+    if (message) {
+      await Dialogflow_V2.requestQuery(
+        message,
+        (result) => this.handleGoogleResponse(result),
+        (error) => console.log(error),
+      );
+    }
   }
 
   async handleGoogleResponse(result) {
-    // console.log(result);
+    console.log('result: ', result);
     let text = result.queryResult.fulfillmentMessages[0].text.text[0];
     await this.onReceive(text);
   }
@@ -177,24 +166,24 @@ export default class Chatbot extends React.Component {
     await Promise.all(
       listMessage.map((message) => {
         // const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
-        setTimeout(function () {
-          usersCollection.writeRecord(user, {
-            _id: Math.round(Math.random() * 1000000),
-            text: message,
-            createdAt: new Date().getTime(),
-            user: {
-              _id: 2,
-              name: 'React Native',
-            },
-          });
-        }, 300);
+        // setTimeout(function () {
+        usersCollection.writeRecord(user, {
+          _id: Math.round(Math.random() * 1000000),
+          text: message,
+          createdAt: new Date().getTime(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+          },
+        });
+        // }, 300);
       }),
     );
   }
 
   renderCustomActions(props) {
     if (Platform.OS === 'android') {
-      return <CustomActions {...props} />;
+      return <CustomActions {...props} onSend={this.onSend} />;
     }
     const options = {
       'Action 1': (props) => {

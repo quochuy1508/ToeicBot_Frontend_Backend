@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.rnfs.RNFSPackage;
 import de.innfactory.apiai.RNApiAiPackage;
 
@@ -51,6 +52,7 @@ public class MainApplication extends Application implements ReactApplication {
                 protected List<ReactPackage> getPackages() {
                     return Arrays.<ReactPackage>asList(
                             new MainReactPackage(),
+            new ImagePickerPackage(),
             new RNFSPackage(),
             new RNApiAiPackage(),
                             new ReactNativeFirebaseDatabasePackage(),
