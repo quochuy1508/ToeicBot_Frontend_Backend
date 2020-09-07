@@ -4,10 +4,9 @@ import {StyleSheet, TouchableOpacity, Image, Text, Linking} from 'react-native';
 function Card({url, image, title}) {
   const styles = StyleSheet.create({
     container: {
-      flex: 2,
       borderTopWidth: 2,
       borderTopColor: 'gainsboro',
-      marginBottom: 100,
+      marginBottom: 20,
     },
     image: {
       height: 150,

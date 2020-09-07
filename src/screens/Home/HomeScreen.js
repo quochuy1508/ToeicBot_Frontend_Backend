@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, StatusBar} from 'react-native';
+import {Text, ScrollView, StatusBar} from 'react-native';
 import styles from './style';
 import Card from '../../components/common/RecommendedCard';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -65,7 +65,7 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.text}>Đề xuất dành cho bạn</Text>
         {this.state.links.map((link) => (
           <Card
@@ -75,10 +75,8 @@ class HomeScreen extends Component {
             title={link['title']}
           />
         ))}
-
-        <View style={{flex: 3}}></View>
         <StatusBar backgroundColor="deepskyblue" />
-      </View>
+      </ScrollView>
     );
   }
 }
