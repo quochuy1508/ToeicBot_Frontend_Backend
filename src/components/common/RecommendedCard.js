@@ -4,7 +4,7 @@ import {StyleSheet, TouchableOpacity, Image, Text, Linking} from 'react-native';
 function Card({url, image, title}) {
   const styles = StyleSheet.create({
     container: {
-      borderTopWidth: 2,
+      borderTopWidth: 1,
       borderTopColor: 'gainsboro',
       marginBottom: 20,
     },
@@ -30,7 +30,6 @@ function Card({url, image, title}) {
   return (
     <TouchableOpacity
       style={styles.container}
-      delayPressIn={0}
       onPress={() => onPress()}>
       <Image source={{uri: image}} style={styles.image} resizeMode="cover" />
       <Text style={styles.title}>{title}</Text>

@@ -5,15 +5,11 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: 'white' 
     },
-    buttonContainer: {
-      flexDirection: 'row', 
-      flex: 1, 
-      justifyContent:'space-around'
-    },
     text: {
       marginTop: 10,
       padding: 10,
       fontSize: 15,
+      fontWeight: 'bold'
     }
   });
 
