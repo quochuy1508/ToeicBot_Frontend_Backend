@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Animated,
   TouchableOpacity,
   Image,
   Linking,
@@ -38,7 +39,8 @@ export default class Chatbot extends React.Component {
     };
 
     this._isMounted = false;
-    this.onSend = this.onSend.bind(this);
+    (this.imageAnimated = new Animated.Value(0)),
+      (this.onSend = this.onSend.bind(this));
     this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
     this.renderBubble = this.renderBubble.bind(this);
@@ -46,6 +48,7 @@ export default class Chatbot extends React.Component {
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
     this.compare = this.compare.bind(this);
     this.renderMessageImage = this.renderMessageImage.bind(this);
+    this.onImageLoad = this.onImageLoad.bind(this);
 
     this._isAlright = null;
   }
@@ -113,6 +116,13 @@ export default class Chatbot extends React.Component {
     this.getData();
   }
 
+  onImageLoad = () => {
+    Animated.timing(this.imageAnimated, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
   renderMessageImage(props) {
     const images = [
       {
@@ -137,9 +147,11 @@ export default class Chatbot extends React.Component {
             ? Linking.openURL(props.currentMessage.link)
             : null
         }>
-        <Image
+        <Animated.Image
           source={{uri: props.currentMessage.image}}
           style={{width: 200, height: 200}}
+          onLoad={this.onImageLoad}
+          // blurRadius={2}
         />
       </TouchableOpacity>
     );
