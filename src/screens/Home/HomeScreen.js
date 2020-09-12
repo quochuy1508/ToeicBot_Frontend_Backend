@@ -1,26 +1,17 @@
 import React, {Component} from 'react';
-import {Text, View, StatusBar} from 'react-native';
+import {Text, ScrollView, StatusBar} from 'react-native';
 import styles from './style';
 import Card from '../../components/common/RecommendedCard';
 import AsyncStorage from '@react-native-community/async-storage';
 import usersCollection, {
   database,
 } from '../../../server/collections/usersCollection';
-
+import ysn from './data/youShouldKnow.json';
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      links: [
-        {
-          url:
-            'https://www.anhngumshoa.com/tin-tuc/toeic-la-gi-bang-toeic-chung-chi-toeic-co-gia-tri-nhu-the-nao-36242.html',
-          image:
-            'https://llv.edu.vn/media/2017/11/logo-toeic-15440892075481729847449.jpg',
-          title:
-            'TOEIC là gì? Bằng TOEIC, chứng chỉ TOEIC có giá trị như thế nào?',
-        },
-      ],
+      links: [],
     };
 
     this._isMounted = false;
@@ -39,15 +30,7 @@ class HomeScreen extends Component {
           this.setState(() => {
             return {
               links: [
-                ...Object.values(value[0]['value']),
-                {
-                  url:
-                    'https://www.anhngumshoa.com/tin-tuc/toeic-la-gi-bang-toeic-chung-chi-toeic-co-gia-tri-nhu-the-nao-36242.html',
-                  image:
-                    'https://llv.edu.vn/media/2017/11/logo-toeic-15440892075481729847449.jpg',
-                  title:
-                    'TOEIC là gì? Bằng TOEIC, chứng chỉ TOEIC có giá trị như thế nào?',
-                },
+                ...Object.values(value[0]['value'])
               ],
             };
           });
@@ -64,8 +47,16 @@ class HomeScreen extends Component {
   }
 
   render() {
+    let r = Math.floor(Math.random() * 3);
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <Text style={styles.text}>Những điều bạn cần biết</Text>
+        <Card
+            key={Math.random()}
+            url={ysn[r].url}
+            image={ysn[r].image}
+            title={ysn[r].title}
+        />
         <Text style={styles.text}>Đề xuất dành cho bạn</Text>
         {this.state.links.map((link) => (
           <Card
@@ -75,10 +66,8 @@ class HomeScreen extends Component {
             title={link['title']}
           />
         ))}
-
-        <View style={{flex: 3}}></View>
         <StatusBar backgroundColor="deepskyblue" />
-      </View>
+      </ScrollView>
     );
   }
 }
