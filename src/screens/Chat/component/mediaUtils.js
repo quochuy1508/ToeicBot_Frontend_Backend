@@ -52,13 +52,13 @@ export async function startRecordAsync() {
   ) {
     let audioPath =
       AudioUtils.DocumentDirectoryPath +
-      `/${Math.floor(Math.random() * 1000000)}.mp3`;
+      `/${Math.floor(Math.random() * 1000000)}.aac`;
 
     await AudioRecorder.prepareRecordingAtPath(audioPath, {
       SampleRate: 22050,
       Channels: 1,
       AudioQuality: 'Low',
-      AudioEncoding: 'mp3',
+      AudioEncoding: 'aac',
       AudioEncodingBitRate: 32000,
       IncludeBase64: true,
     }).then((result) => console.log('result: ', result));
@@ -86,7 +86,8 @@ export async function stopRecordAsync(onSend) {
           const messagesToUpload = [
             {
               _id: Math.round(Math.random() * 1000000),
-              audio: data.audioFileURL,
+              audio: data.base64,
+              path: data.audioFileURL,
               createdAt: new Date().getTime(),
               user: {
                 _id: 1,

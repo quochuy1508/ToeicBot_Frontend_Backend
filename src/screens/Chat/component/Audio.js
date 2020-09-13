@@ -9,8 +9,9 @@ import {
   Platform,
   PermissionsAndroid,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Sound from 'react-native-sound';
+import RNFS from 'react-native-fs';
 import {AudioRecorder, AudioUtils} from 'react-native-audio';
 
 class AudioExample extends Component {
@@ -65,7 +66,8 @@ class AudioExample extends Component {
 
     return (
       <TouchableHighlight style={styles.button} onPress={onPress}>
-        <Text style={style}>{title}</Text>
+        {/* <Text style={style}>{title}</Text> */}
+        <Icon name={title} size={20} color="#900" />
       </TouchableHighlight>
     );
   }
@@ -136,27 +138,25 @@ class AudioExample extends Component {
     // These timeouts are a hacky workaround for some issues with react-native-sound.
     // See https://github.com/zmxv/react-native-sound/issues/89.
     // setTimeout(() => {
-    console.log('this.state.audioPath: ', this.state.audioPath);
-    var sound = await new Sound(
-      this.state.audioPath,
-      AudioUtils.DocumentDirectoryPath,
-      (error) => {
+    // console.log('this.state.audioPath: ', this.state.audioPath);
+    const path =
+      AudioUtils.DocumentDirectoryPath +
+      `/${Math.floor(Math.random() * 1000000)}.aac`;
+    await RNFS.writeFile(path, this.props.audio, 'base64').then(() => {
+      const sound = new Sound(path, '', (error) => {
         if (error) {
           console.log('failed to load the sound', error);
+        } else {
+          sound.play((success) => {
+            if (success) {
+              console.log('successfully finished playing');
+            } else {
+              console.log('playback failed due to audio decoding errors');
+            }
+          });
         }
-      },
-    );
-
-    // setTimeout(() => {
-    await sound.play((success) => {
-      if (success) {
-        console.log('successfully finished playing');
-      } else {
-        console.log('playback failed due to audio decoding errors');
-      }
+      });
     });
-    // }, 100);
-    // }, 100);
   }
 
   async _record() {
@@ -196,17 +196,12 @@ class AudioExample extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.controls}>
-          {this._renderButton('PLAY', () => {
+          {this._renderButton('play', () => {
             this._play();
           })}
-          {this._renderButton('STOP', () => {
+          {this._renderButton('pause', () => {
             this._stop();
           })}
-          {/* {this._renderButton("PAUSE", () => {this._pause()} )} */}
-          {this._renderPauseButton(() => {
-            this.state.paused ? this._resume() : this._pause();
-          })}
-          {/* <Text style={styles.progressText}>{this.state.currentTime}s</Text> */}
         </View>
       </View>
     );
@@ -216,11 +211,13 @@ class AudioExample extends Component {
 var styles = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: '#2b608a',
+    backgroundColor: '#fff',
+    flexDirection: 'column',
   },
   controls: {
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
     // flex: 1,
   },
   progressText: {
@@ -229,7 +226,7 @@ var styles = StyleSheet.create({
     color: '#fff',
   },
   button: {
-    // padding: 20,
+    padding: 20,
   },
   disabledButtonText: {
     color: '#eee',

@@ -18,17 +18,15 @@ import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './component/CustomActions';
 import CustomView from './CustomView';
 import {Dialogflow_V2} from 'react-native-dialogflow';
-import RNFS from 'react-native-fs';
 import {dialogflowConfig} from '../../helpers/env';
 import {getLinkPreview} from 'link-preview-js';
-import Sound from 'react-native-sound';
 import Audio from './component/Audio';
 import {AudioUtils} from 'react-native-audio';
 
 const BOT_USER = {
   _id: 2,
   name: 'FAQ Bot',
-  avatar: 'https://i.imgur.com/7k12EPD.png',
+  avatar: 'https://i.ibb.co/wRjynss/logo.png',
 };
 
 export default class Chatbot extends React.Component {
@@ -162,15 +160,15 @@ export default class Chatbot extends React.Component {
   }
   renderMessageAudio(props) {
     // if (props['currentMessage'] && props['currentMessage']['audio']) {
-    //   console.log('audio', props['currentMessage']['audio']);
+    // console.log('audio', props['currentMessage']['audio']);
     // }
 
     return (
       <Audio
         audioPath={
-          AudioUtils.DocumentDirectoryPath +
-          props['currentMessage']['audio'].slice(35)
+          AudioUtils.DocumentDirectoryPath + props['currentMessage']['path']
         }
+        audio={props['currentMessage']['audio']}
       />
     );
   }
@@ -225,6 +223,7 @@ export default class Chatbot extends React.Component {
       user: {
         _id: 2,
         name: 'React Native',
+        avatar: 'https://i.ibb.co/wRjynss/logo.png',
       },
     };
 
@@ -239,6 +238,7 @@ export default class Chatbot extends React.Component {
           user: {
             _id: 2,
             name: 'React Native',
+            avatar: 'https://i.ibb.co/wRjynss/logo.png',
           },
         });
         // }, 300);
@@ -265,6 +265,7 @@ export default class Chatbot extends React.Component {
             user: {
               _id: 2,
               name: 'React Native',
+              avatar: 'https://i.ibb.co/wRjynss/logo.png',
             },
           });
         })

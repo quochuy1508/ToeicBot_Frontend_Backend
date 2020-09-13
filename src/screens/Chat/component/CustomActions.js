@@ -18,14 +18,14 @@ import {
   stopRecordAsync,
   takePictureAsync,
 } from './mediaUtils';
-var ACTION_TIMER = 400;
+var ACTION_TIMER = 1000;
 var COLORS = ['rgb(255,255,255)', 'rgb(111,235,62)'];
 export default class CustomActions extends React.Component {
   state = {
     pressAction: new Animated.Value(0),
     textComplete: '',
-    buttonWidth: 0,
-    buttonHeight: 0,
+    buttonWidth: 100,
+    buttonHeight: 100,
   };
 
   UNSAFE_componentWillMount() {
@@ -89,7 +89,7 @@ export default class CustomActions extends React.Component {
   };
 
   onActionsPress = () => {
-    const options = ['Gửi Ảnh', 'Ghi Âm', 'Trở lại'];
+    const options = ['Gửi Ảnh', 'Trở lại'];
     const cancelButtonIndex = options.length - 1;
     this.context.actionSheet().showActionSheetWithOptions(
       {
@@ -102,9 +102,6 @@ export default class CustomActions extends React.Component {
           case 0:
             takePictureAsync(onSend);
             return;
-          case 1:
-            takeRecordAsync(onSend);
-            return;
           default:
         }
       },
@@ -116,8 +113,8 @@ export default class CustomActions extends React.Component {
       return this.props.renderIcon();
     }
     return (
-      <View style={[styles.wrapper, this.props.wrapperStyle]}>
-        <Text style={[styles.iconText, this.props.iconTextStyle]}>+</Text>
+      <View style={styles.button} onLayout={this.getButtonWidthLayout}>
+        <Icon name="image" size={20} color="#900" />
       </View>
     );
   };
@@ -126,6 +123,11 @@ export default class CustomActions extends React.Component {
     LogBox.ignoreAllLogs(); //Ignore all log notifications
     return (
       <View style={styles.container}>
+        <TouchableOpacity
+          style={[styles.container, this.props.containerStyle]}
+          onPress={this.onActionsPress}>
+          {this.renderIcon()}
+        </TouchableOpacity>
         <TouchableWithoutFeedback
           onPressIn={this.handlePressIn}
           onPressOut={this.handlePressOut}>
@@ -134,6 +136,7 @@ export default class CustomActions extends React.Component {
             <Icon name="microphone" size={20} color="#900" />
           </View>
         </TouchableWithoutFeedback>
+
         <View>
           <Text>{this.state.textComplete}</Text>
         </View>
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   button: {
-    // padding: 20,
+    padding: 10,
     // borderWidth: 3,
     // borderColor: '#111',
   },
