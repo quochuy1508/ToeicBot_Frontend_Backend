@@ -21,7 +21,7 @@ class HomeScreen extends Component {
     const user = JSON.parse(await AsyncStorage.getItem('user'));
     await database
       .ref(`/${user.id}-link`)
-      // .orderByChild('database/createdAt')
+      .limitToLast(3)
       // .orderBy('createdAt', 'desc')
       .on('value', (snapshot) => {
         const value = Object.values(snapshot);
@@ -29,9 +29,7 @@ class HomeScreen extends Component {
           // console.log('messages: ', messages);
           this.setState(() => {
             return {
-              links: [
-                ...Object.values(value[0]['value'])
-              ],
+              links: [...Object.values(value[0]['value'])],
             };
           });
         }
@@ -52,10 +50,10 @@ class HomeScreen extends Component {
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.text}>Những điều bạn cần biết</Text>
         <Card
-            key={Math.random()}
-            url={ysn[r].url}
-            image={ysn[r].image}
-            title={ysn[r].title}
+          key={Math.random()}
+          url={ysn[r].url}
+          image={ysn[r].image}
+          title={ysn[r].title}
         />
         <Text style={styles.text}>Đề xuất dành cho bạn</Text>
         {this.state.links.map((link) => (

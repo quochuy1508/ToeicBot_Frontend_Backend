@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   Linking,
+  TouchableHighlight,
 } from 'react-native';
 import usersCollection, {
   database,
@@ -20,6 +21,9 @@ import {Dialogflow_V2} from 'react-native-dialogflow';
 import RNFS from 'react-native-fs';
 import {dialogflowConfig} from '../../helpers/env';
 import {getLinkPreview} from 'link-preview-js';
+import Sound from 'react-native-sound';
+import Audio from './component/Audio';
+import {AudioUtils} from 'react-native-audio';
 
 const BOT_USER = {
   _id: 2,
@@ -156,6 +160,20 @@ export default class Chatbot extends React.Component {
       </TouchableOpacity>
     );
   }
+  renderMessageAudio(props) {
+    // if (props['currentMessage'] && props['currentMessage']['audio']) {
+    //   console.log('audio', props['currentMessage']['audio']);
+    // }
+
+    return (
+      <Audio
+        audioPath={
+          AudioUtils.DocumentDirectoryPath +
+          props['currentMessage']['audio'].slice(35)
+        }
+      />
+    );
+  }
 
   async onSend(messages = []) {
     messages[0].sent = true;
@@ -165,7 +183,7 @@ export default class Chatbot extends React.Component {
     await usersCollection.writeRecord(user, messages[0]);
 
     let message = messages[0].text;
-
+    console.log('message: ', message);
     if (message) {
       await Dialogflow_V2.requestQuery(
         message,
@@ -307,6 +325,7 @@ export default class Chatbot extends React.Component {
         onLoadEarlier={this.onLoadEarlier}
         isLoadingEarlier={this.state.isLoadingEarlier}
         renderMessageImage={this.renderMessageImage}
+        renderMessageAudio={this.renderMessageAudio}
         user={{
           _id: 1, // sent messages should have same user._id
         }}
@@ -331,5 +350,33 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 14,
     color: '#aaa',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#2b608a',
+  },
+  controls: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  progressText: {
+    paddingTop: 50,
+    fontSize: 50,
+    color: '#fff',
+  },
+  button: {
+    padding: 10,
+  },
+  disabledButtonText: {
+    color: '#eee',
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#fff',
+  },
+  activeButtonText: {
+    fontSize: 20,
+    color: '#B81F00',
   },
 });
