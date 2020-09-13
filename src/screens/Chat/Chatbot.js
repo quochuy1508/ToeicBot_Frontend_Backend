@@ -4,9 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
+  Animated,
   TouchableOpacity,
   Image,
   Linking,
+  TouchableHighlight,
 } from 'react-native';
 import usersCollection, {
   database,
@@ -16,14 +18,15 @@ import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './component/CustomActions';
 import CustomView from './CustomView';
 import {Dialogflow_V2} from 'react-native-dialogflow';
-import RNFS from 'react-native-fs';
 import {dialogflowConfig} from '../../helpers/env';
 import {getLinkPreview} from 'link-preview-js';
+import Audio from './component/Audio';
+import {AudioUtils} from 'react-native-audio';
 
 const BOT_USER = {
   _id: 2,
   name: 'FAQ Bot',
-  avatar: 'https://i.imgur.com/7k12EPD.png',
+  avatar: 'https://i.ibb.co/wRjynss/logo.png',
 };
 
 export default class Chatbot extends React.Component {
@@ -38,7 +41,8 @@ export default class Chatbot extends React.Component {
     };
 
     this._isMounted = false;
-    this.onSend = this.onSend.bind(this);
+    (this.imageAnimated = new Animated.Value(0)),
+      (this.onSend = this.onSend.bind(this));
     this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
     this.renderBubble = this.renderBubble.bind(this);
@@ -46,6 +50,7 @@ export default class Chatbot extends React.Component {
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
     this.compare = this.compare.bind(this);
     this.renderMessageImage = this.renderMessageImage.bind(this);
+    this.onImageLoad = this.onImageLoad.bind(this);
 
     this._isAlright = null;
   }
@@ -113,6 +118,13 @@ export default class Chatbot extends React.Component {
     this.getData();
   }
 
+  onImageLoad = () => {
+    Animated.timing(this.imageAnimated, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
   renderMessageImage(props) {
     const images = [
       {
@@ -137,11 +149,27 @@ export default class Chatbot extends React.Component {
             ? Linking.openURL(props.currentMessage.link)
             : null
         }>
-        <Image
+        <Animated.Image
           source={{uri: props.currentMessage.image}}
           style={{width: 200, height: 200}}
+          onLoad={this.onImageLoad}
+          // blurRadius={2}
         />
       </TouchableOpacity>
+    );
+  }
+  renderMessageAudio(props) {
+    // if (props['currentMessage'] && props['currentMessage']['audio']) {
+    // console.log('audio', props['currentMessage']['audio']);
+    // }
+
+    return (
+      <Audio
+        audioPath={
+          AudioUtils.DocumentDirectoryPath + props['currentMessage']['path']
+        }
+        audio={props['currentMessage']['audio']}
+      />
     );
   }
 
@@ -153,7 +181,7 @@ export default class Chatbot extends React.Component {
     await usersCollection.writeRecord(user, messages[0]);
 
     let message = messages[0].text;
-
+    console.log('message: ', message);
     if (message) {
       await Dialogflow_V2.requestQuery(
         message,
@@ -195,6 +223,7 @@ export default class Chatbot extends React.Component {
       user: {
         _id: 2,
         name: 'React Native',
+        avatar: 'https://i.ibb.co/wRjynss/logo.png',
       },
     };
 
@@ -209,6 +238,7 @@ export default class Chatbot extends React.Component {
           user: {
             _id: 2,
             name: 'React Native',
+            avatar: 'https://i.ibb.co/wRjynss/logo.png',
           },
         });
         // }, 300);
@@ -235,6 +265,7 @@ export default class Chatbot extends React.Component {
             user: {
               _id: 2,
               name: 'React Native',
+              avatar: 'https://i.ibb.co/wRjynss/logo.png',
             },
           });
         })
@@ -295,6 +326,7 @@ export default class Chatbot extends React.Component {
         onLoadEarlier={this.onLoadEarlier}
         isLoadingEarlier={this.state.isLoadingEarlier}
         renderMessageImage={this.renderMessageImage}
+        renderMessageAudio={this.renderMessageAudio}
         user={{
           _id: 1, // sent messages should have same user._id
         }}
@@ -319,5 +351,33 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 14,
     color: '#aaa',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#2b608a',
+  },
+  controls: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  progressText: {
+    paddingTop: 50,
+    fontSize: 50,
+    color: '#fff',
+  },
+  button: {
+    padding: 10,
+  },
+  disabledButtonText: {
+    color: '#eee',
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#fff',
+  },
+  activeButtonText: {
+    fontSize: 20,
+    color: '#B81F00',
   },
 });

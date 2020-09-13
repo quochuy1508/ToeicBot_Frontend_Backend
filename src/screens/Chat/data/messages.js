@@ -21,6 +21,7 @@ module.exports = [
     user: {
       _id: 2,
       name: 'React Native',
+      avatar: 'https://i.ibb.co/wRjynss/logo.png',
     },
   },
 ];

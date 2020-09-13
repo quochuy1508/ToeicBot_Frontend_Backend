@@ -226,6 +226,9 @@ dependencies {
     implementation project(':@react-native-community_cameraroll')
     implementation project(':react-native-fs')
     implementation project(':react-native-image-picker')
+    implementation project(':react-native-audio')
+    implementation project(':react-native-sound')
+    implementation project(':react-native-sound-player')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
