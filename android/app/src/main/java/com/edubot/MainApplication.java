@@ -4,6 +4,12 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.react.ReactApplication;
+import com.johnsonsu.rnsoundplayer.RNSoundPlayerPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.rnim.rn.audio.ReactNativeAudioPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.rnfs.RNFSPackage;
+import de.innfactory.apiai.RNApiAiPackage;
 
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
@@ -34,6 +40,7 @@ import java.util.List;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import co.apptailor.googlesignin.RNGoogleSigninPackage;  // <--- import
+import com.reactnativecommunity.cameraroll.CameraRollPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -48,6 +55,12 @@ public class MainApplication extends Application implements ReactApplication {
                 protected List<ReactPackage> getPackages() {
                     return Arrays.<ReactPackage>asList(
                             new MainReactPackage(),
+            new RNSoundPlayerPackage(),
+            new RNSoundPackage(),
+            new ReactNativeAudioPackage(),
+            new ImagePickerPackage(),
+            new RNFSPackage(),
+            new RNApiAiPackage(),
                             new ReactNativeFirebaseDatabasePackage(),
                             new ReactNativeFirebaseAppPackage(),
                             new ReactNativeFirebaseFirestorePackage(),
@@ -58,7 +71,8 @@ public class MainApplication extends Application implements ReactApplication {
                             new FBSDKPackage(),
                             new RNGoogleSigninPackage(),
                             new SplashScreenReactPackage(), // <-- this needs to be in the list
-                            new AsyncStoragePackage()
+                            new AsyncStoragePackage(),
+                            new CameraRollPackage()
                     );
                 }
 

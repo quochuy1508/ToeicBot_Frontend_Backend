@@ -9,22 +9,29 @@ export default {
   orderingRecord: async (ref) => {
     try {
       const data = await database().ref(ref).orderByValue().once('value');
-      console.log('data: ', data);
     } catch (error) {
       console.log('error: ', error);
     }
   },
   writeRecord: async (user, messages) => {
     try {
-      // console.log('user: ', user);
-      // console.log('messages: ', messages);
       const infoUser = JSON.parse(user);
-      // const message = JSON.parse(messages[0]);
-
+      // console.log('database: ', database);
       await database
         .ref(`${infoUser.id}`)
         .push(messages)
         .then(() => console.log('Data set.'));
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  },
+  writeRecordLink: async (user, dataLink) => {
+    try {
+      const infoUser = JSON.parse(user);
+      await database
+        .ref(`${infoUser.id}-link`)
+        .push(dataLink)
+        .then(() => console.log('Data set link.'));
     } catch (error) {
       console.log('error: ', error);
     }
@@ -40,7 +47,7 @@ export default {
       let data = {};
       await database.ref(`/${user.id}`).on('value', (querySnapShot) => {
         data = querySnapShot.val() ? querySnapShot.val() : {};
-        console.log('data: '.data);
+        // console.log('data: '.data);
       });
 
       return data;
