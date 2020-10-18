@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, ActivityIndicator} from 'react-native'
-import AuthTab from './AuthTab';
+import Login from '../screens/Login'
 import AppTab from './AppTab';
 import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -42,7 +42,7 @@ const Navigation = ({users}) => {
       </View>
     )
   }
-  return info && Object.keys(info).length > 0 ? <AppTab /> : <AuthTab />;
+  return info && Object.keys(info).length > 0 ? <AppTab /> : <Login />;
 };
 
 const mapStateToProps = (state) => state;
