@@ -9,7 +9,9 @@ The chatbot was integrated with [DialogFlow of Google](https://dialogflow.cloud.
 
 The frontend of the application was built on [React Native](https://reactnative.dev/) while its backend was built on [Firebase](https://firebase.google.com/).
 
-The demo of the application can be found in this [link](https://drive.google.com/file/d/1AP2-WzewJK2wE1VI6BBmKnVwdI1L--rO/view?usp=drivesdk)
+The **demo** of the application can be found in this [link](https://drive.google.com/file/d/1AP2-WzewJK2wE1VI6BBmKnVwdI1L--rO/view?usp=drivesdk)
+
+The **closeout report** of the project can be found in this [link](https://drive.google.com/file/d/1neLuRDDig-4kRXJp2sNM5PE2sWuFJx3J/view?usp=sharing)
 
 # Prize from Facebook developer circles vietnam innovation challenge
 
